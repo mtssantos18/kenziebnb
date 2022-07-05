@@ -1,23 +1,23 @@
 import { Route, Switch } from "react-router-dom";
 
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import SignUp from "../pages/Signup";
+import Home from "../pages/Home/index.jsx";
+import Login from "../pages/Login/index.jsx";
+import SignUp from "../pages/SignUp/index.jsx";
 
 function Routes() {
-  return (
-    <Switch>
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/signup">
-        <SignUp />
-      </Route>
-    </Switch>
-  );
+	return (
+		<Switch>
+			<Route exact path="/">
+				<Home />
+			</Route>
+			<Route path="/login">
+				<Login />
+			</Route>
+			<Route path="/signup">
+				<SignUp />
+			</Route>
+		</Switch>
+	);
 }
 
 export default Routes;
