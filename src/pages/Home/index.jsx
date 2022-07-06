@@ -3,7 +3,6 @@ import Input from "../../components/Input/index.jsx";
 import SelectInput from "../../components/SelectInput/index.jsx";
 
 function Home() {
-
   return (
     <div>
       {/* Exemplos Input */}
