@@ -1,7 +1,9 @@
 import Button from "../../components/Button/index.jsx";
 import Input from "../../components/Input/index.jsx";
+import SelectInput from "../../components/SelectInput/index.jsx";
 
 function Home() {
+
   return (
     <div>
       {/* Exemplos Input */}
@@ -20,7 +22,12 @@ function Home() {
         placeholder="Digite aqui seu nome"
         // register={register}
         // error={errors.password?.message}
-      /> */}
+      /> 
+      <SelectInput
+				label="Atribuição"
+				name="atribution"
+				// register={register}
+			/> */}
 
       {/* Exemplos Button:
 	  	pode ser passado as seguintes props: 
