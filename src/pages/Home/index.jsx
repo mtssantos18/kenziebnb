@@ -1,10 +1,10 @@
 import Input from "../../components/Input/index.jsx";
 
 function Home() {
-	return (
-		<div>
-			{/* Exemplos Input */}
-			{/* <Input
+  return (
+    <div>
+      {/* Exemplos Input */}
+      {/* <Input
 				label="Senha"
 				name="password"
 				type="password"
@@ -20,8 +20,8 @@ function Home() {
 				// register={register}
 				// error={errors.password?.message}
 			/> */}
-		</div>
-	);
+    </div>
+  );
 }
 
 export default Home;
