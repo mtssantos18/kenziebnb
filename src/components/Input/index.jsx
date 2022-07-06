@@ -7,36 +7,29 @@ function Input({ label, name, type, placeholder, register, error }) {
   const { showPassword, inputType, onClickShowPassword } =
     useContext(InputContext);
 
-	return (
-		<Container error={error}>
-			<label>{label}</label>
-			<InputContainer error={error}>
-				<input
-					placeholder={placeholder}
-					{...register(name)}
-					type={type === "password" ? inputType : type}
-				/>
-				{name === "password" &&
-					(showPassword ? (
-						<button
-							className="EyeIcon"
-							onClick={onClickShowPassword}
-						>
-							<AiFillEyeInvisible size={20} />
-						</button>
-					) : (
-						<button
-							className="EyeIcon"
-							onClick={onClickShowPassword}
-						>
-							<AiFillEye size={20} />
-						</button>
-					))}
-			</InputContainer>
-			{error && <span>{error}</span>}
-		</Container>
-	);
-
+  return (
+    <Container error={error}>
+      <label>{label}</label>
+      <InputContainer error={error}>
+        <input
+          placeholder={placeholder}
+          {...register(name)}
+          type={type === "password" ? inputType : type}
+        />
+        {name === "password" &&
+          (showPassword ? (
+            <button className="EyeIcon" onClick={onClickShowPassword}>
+              <AiFillEyeInvisible size={20} />
+            </button>
+          ) : (
+            <button className="EyeIcon" onClick={onClickShowPassword}>
+              <AiFillEye size={20} />
+            </button>
+          ))}
+      </InputContainer>
+      {error && <span>{error}</span>}
+    </Container>
+  );
 }
 
 export default Input;
