@@ -12,4 +12,11 @@ export const ButtonStyle = styled.button`
 
   font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : "20px")};
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : "700")};
+
+  transition: all 0.2s;
+
+  :hover {
+    background-color: ${(props) => (props.header ? "#495057" : "#023E8A")};
+    color: ${(props) => props.header && "#FFFFFF"};
+  }
 `;

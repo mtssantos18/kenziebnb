@@ -25,12 +25,12 @@ function Home() {
         placeholder="Digite aqui seu nome"
         // register={register}
         // error={errors.password?.message}
-      /> 
+      />
       <SelectInput
-				label="Atribuição"
-				name="atribution"
-				// register={register}
-			/> */}
+        label="Atribuição"
+        name="atribution"
+        // register={register}
+      /> */}
 
 			{/* Exemplos Button:
 	  	pode ser passado as seguintes props: 
@@ -41,6 +41,7 @@ function Home() {
 		deixei um exempo no componente <Button>
 
 	  */}
+
 			{/* 
 	  <Button width={200} fontWeight={600}>
         Cadastrar
@@ -49,6 +50,7 @@ function Home() {
       <Button header>Login</Button> */}
 		</div>
 	);
+
 }
 
 export default Home;

@@ -4,8 +4,8 @@ import { useContext, useState } from "react";
 import { InputContext } from "../../providers/Input/Input.js";
 
 function Input({ label, name, type, placeholder, register, error }) {
-	const { showPassword, inputType, onClickShowPassword } =
-		useContext(InputContext);
+  const { showPassword, inputType, onClickShowPassword } =
+    useContext(InputContext);
 
 	return (
 		<Container error={error}>
@@ -36,6 +36,7 @@ function Input({ label, name, type, placeholder, register, error }) {
 			{error && <span>{error}</span>}
 		</Container>
 	);
+
 }
 
 export default Input;

@@ -17,10 +17,15 @@ export default createGlobalStyle`
     --grey-2: #E9ECEF;
     --grey-3: #ADB5BD;
     --grey-4: #495057;
+    --black: #000000;
+    --white: #FFFFFF;
 }
 
 body{
-   
+
+    width: 100vw;
+    height: 100vh;
+
 }
 
 body, input, button {
