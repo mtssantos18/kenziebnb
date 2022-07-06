@@ -8,6 +8,7 @@ export const InputProvider = ({ children }) => {
 
 	function onClickShowPassword(event) {
 		event.preventDefault();
+		console.log("hi");
 		if (showPassword) {
 			setShowPassword(false);
 			setInputType("password");
