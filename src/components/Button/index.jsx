@@ -1,9 +1,17 @@
-import React from "react";
+import { ButtonStyle } from "./style";
 
-function Button() {
-  return <div>Button</div>;
+function Button({ children, header, width, height, fontSize, fontWeight }) {
+  return (
+    <ButtonStyle
+      header={header}
+      width={width}
+      height={height}
+      fontSize={fontSize}
+      fontWeight={fontWeight}
+    >
+      {children}
+    </ButtonStyle>
+  );
 }
 
 export default Button;
-
-// testing the push bug
