@@ -13,7 +13,7 @@ function Input({ label, name, type, placeholder, register, error }) {
 			<InputContainer error={error}>
 				<input
 					placeholder={placeholder}
-					// {...register(name)}
+					{...register(name)}
 					type={type === "password" ? inputType : type}
 				/>
 				{name === "password" &&

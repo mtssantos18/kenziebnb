@@ -20,7 +20,7 @@ export default createGlobalStyle`
 }
 
 body{
-
+   
 }
 
 body, input, button {
