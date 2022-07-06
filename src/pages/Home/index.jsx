@@ -5,7 +5,7 @@ function Home() {
 	return (
 		<div>
 			{/* Exemplos Input */}
-			<Input
+			{/* <Input
 				label="Senha"
 				name="password"
 				type="password"
@@ -25,7 +25,7 @@ function Home() {
 				label="Atribuição"
 				name="atribution"
 				// register={register}
-			/>
+			/> */}
 		</div>
 	);
 }
