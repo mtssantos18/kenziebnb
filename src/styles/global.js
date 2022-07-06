@@ -10,13 +10,13 @@ export default createGlobalStyle`
 }
 
 :root{
-    --blue-1: #CAF0F8,
-    --blue-2: #023E8A,
-    --blue-3: #0077B6,
-    --grey-1: #F8F9FA,
-    --grey-2: #E9ECEF,
-    --grey-3: #ADB5BD,
-    --grey-4: #495057,
+    --blue-1: #CAF0F8;
+    --blue-2: #023E8A;
+    --blue-3: #0077B6;
+    --grey-1: #F8F9FA;
+    --grey-2: #E9ECEF;
+    --grey-3: #ADB5BD;
+    --grey-4: #495057;
 }
 
 body{

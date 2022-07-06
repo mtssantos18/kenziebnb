@@ -7,10 +7,11 @@ function Home() {
     <div>
       {/* Exemplos Input */}
       {/* <Input
-        label="Senha"
-        name="password"
-        type="password"
-        placeholder="Digite aqui seu email"
+
+				label="Senha"
+				name="password"
+				type="password"
+				placeholder="Digite aqui seu email"        
         // register={register}
         // error={errors.password?.message}
       />
@@ -43,6 +44,7 @@ function Home() {
       </Button>
 
       <Button header>Login</Button> */}
+
     </div>
   );
 }
