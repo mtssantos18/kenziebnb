@@ -1,6 +1,14 @@
 import { ButtonStyle } from "./style";
 
-function Button({ children, header, width, height, fontSize, fontWeight }) {
+function Button({
+  children,
+  header,
+  width,
+  height,
+  fontSize,
+  fontWeight,
+  ...rest
+}) {
   return (
     <ButtonStyle
       header={header}
@@ -8,6 +16,7 @@ function Button({ children, header, width, height, fontSize, fontWeight }) {
       height={height}
       fontSize={fontSize}
       fontWeight={fontWeight}
+      {...rest}
     >
       {children}
     </ButtonStyle>
