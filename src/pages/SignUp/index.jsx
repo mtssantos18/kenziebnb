@@ -16,23 +16,19 @@ function SignUp() {
   const history = useHistory();
 
   const formSchema = yup.object().shape({
-    name: yup.string().required("Campo obrigatório"),
-    email: yup.string().required("Campo obrigatório").email("Email inválido"),
+    name: yup.string().required("Nome obrigatório"),
+    email: yup.string().required("Email obrigatório").email("Email inválido"),
     password: yup
       .string()
-      .required("Campo obrigatório")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\.*])(?=.{8,})/,
-        "Senha deve conter pelo menos uma letra maiúscula, um número, um caractere especial e no mínimo 8 caracteres"
-      ),
+      .required("Senha obrigatória")
+      .matches(/^(?=.{5,})/, "Mínimo de 5 caracteres"),
     passwordConfirm: yup
       .string()
+      .required("Confirme a senha")
       .oneOf([yup.ref("password")], "Senhas diferentes"),
-    cpf: yup.string().required("Campo obrigatório"),
-    zipCode: yup.string().required("Campo obrigatório"),
-    number: yup.string().required("Campo obrigatório"),
-    phone: yup.string().required("Campo obrigatório"),
-    atribution: yup.string().required("Campo obrigatório"),
+    cpf: yup.string().required("CPF obrigatório"),
+    phone: yup.string().required("Telefone obrigatório"),
+    atribution: yup.string().required("Atribuição obrigatória"),
   });
 
   const {
@@ -44,7 +40,9 @@ function SignUp() {
   });
 
   function onSubmit(data) {
-    console.log(data);
+    const { atribution, cpf, email, name, password, phone } = data;
+    const newAccount = { atribution, cpf, email, name, password, phone };
+    console.log(newAccount);
     // history.push("/login");
   }
 
@@ -98,26 +96,7 @@ function SignUp() {
               register={register}
               error={errors.cpf?.message}
             />
-            <div>
-              <Input
-                label="CEP"
-                name="zipCode"
-                type="text"
-                placeholder="Digite seu cep"
-                register={register}
-                error={errors.zipCode?.message}
-              />
-              <div className="firstDiv">
-                <Input
-                  label="Nº"
-                  name="number"
-                  type="text"
-                  placeholder="0000"
-                  register={register}
-                  error={errors.number?.message}
-                />
-              </div>
-            </div>
+
             <Input
               label="Telefone"
               name="phone"

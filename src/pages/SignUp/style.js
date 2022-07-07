@@ -5,8 +5,6 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding-bottom: 1rem;
-
   height: 100%;
 
   background-color: var(--grey-2);
@@ -38,12 +36,14 @@ export const FormDiv = styled.div`
   border-radius: 9px;
 
   padding: 0.5rem;
+
+  box-shadow: 3px 2px 8px 2px rgba(0, 0, 0, 0.24);
 `;
 
 const appearFromLeft = keyframes`
 from{
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-25px);
 }
 to{
     opacity: 1;
@@ -64,24 +64,17 @@ export const AnimationContainer = styled.div`
     font-weight: 700;
     font-size: 24px;
     color: var(--blue-3);
+
+    padding: 1.5rem;
   }
 
   form {
     display: flex;
     flex-direction: column;
+    gap: 4px;
 
     width: 100%;
     max-width: 330px;
-
-    div {
-      display: flex;
-
-      width: 100%;
-
-      .firstDiv {
-        width: 70%;
-      }
-    }
 
     & > button {
       margin: 0 auto;
