@@ -3,12 +3,13 @@ import Input from "../../components/Input/index.jsx";
 import LoginForm from "../../components/LoginForm/index.jsx";
 import SelectInput from "../../components/SelectInput/index.jsx";
 import Login from "../Login/index.jsx";
+import SignUp from "../SignUp/index.jsx";
 
 function Home() {
 	return (
 		<div>
-			<Login />
-
+			{/* <Login /> */}
+			<SignUp />
 			{/* Exemplos Input */}
 			{/* <Input
 				label="Senha"
