@@ -1,4 +1,4 @@
-import { AnimationContainer, Container, FormDiv } from "./style";
+import { AnimationContainer, Background, Container, FormDiv } from "./style";
 
 import Input from "../../components/Input";
 import SelectInput from "../../components/SelectInput";
@@ -120,6 +120,9 @@ function SignUp() {
           </button>
         </AnimationContainer>
       </FormDiv>
+      <Background>
+        <img src={SignupImage} alt="Plano de Fundo" />
+      </Background>
     </Container>
   );
 }

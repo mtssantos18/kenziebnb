@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import SignupImage from "../../assets/signup.svg";
 
 export const Container = styled.div`
   display: flex;
@@ -9,6 +10,8 @@ export const Container = styled.div`
 
   background-color: var(--grey-2);
 
+  position: relative;
+
   .title {
     padding: 1.5rem;
 
@@ -18,10 +21,46 @@ export const Container = styled.div`
     font-weight: 700;
 
     text-shadow: 2px 4px 7px rgba(0, 0, 0, 0.73);
+
+    z-index: 1;
+  }
+
+  @media (min-width: 900px) {
+    flex-direction: row;
+
+    .title {
+      position: absolute;
+
+      top: 0px;
+      right: 0px;
+    }
   }
 `;
 
-export const Background = styled.div``;
+export const Background = styled.div`
+  position: absolute;
+  top: -50px;
+
+  width: 100%;
+
+  img {
+    width: 100%;
+  }
+
+  @media (min-width: 900px) {
+    position: static;
+
+    height: 100%;
+
+    background: url(${SignupImage}) no-repeat;
+
+    background-size: cover;
+
+    img {
+      display: none;
+    }
+  }
+`;
 
 export const FormDiv = styled.div`
   display: flex;
@@ -29,7 +68,7 @@ export const FormDiv = styled.div`
   align-items: center;
 
   width: 85%;
-  max-width: 500px;
+  max-width: 560px;
 
   background-color: var(--white);
 
@@ -37,7 +76,19 @@ export const FormDiv = styled.div`
 
   padding: 0.5rem;
 
+  z-index: 1;
+
   box-shadow: 3px 2px 8px 2px rgba(0, 0, 0, 0.24);
+
+  @media (min-width: 900px) {
+    height: 100%;
+
+    justify-content: center;
+  }
+
+  @media (min-width: 1600px) {
+    max-width: 700px;
+  }
 `;
 
 const appearFromLeft = keyframes`
@@ -83,6 +134,10 @@ export const AnimationContainer = styled.div`
       margin-bottom: 0.5rem;
 
       width: 95%;
+    }
+
+    @media (min-width: 1600px) {
+      max-width: 500px;
     }
   }
 
