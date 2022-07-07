@@ -1,9 +1,12 @@
 import Button from "../../components/Button/index.jsx";
+import Footer from "../../components/Footer/index.jsx";
+import { FooterStyle } from "../../components/Footer/styles.js";
 import Input from "../../components/Input/index.jsx";
 
 function Home() {
   return (
     <div>
+      <Footer/>
       {/* Exemplos Input */}
       {/* <Input
         label="Senha"
