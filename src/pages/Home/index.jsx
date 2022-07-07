@@ -2,16 +2,14 @@ import Button from "../../components/Button/index.jsx";
 import Input from "../../components/Input/index.jsx";
 import LoginForm from "../../components/LoginForm/index.jsx";
 import SelectInput from "../../components/SelectInput/index.jsx";
-import Login from "../Login/index.jsx";
-import SignUp from "../SignUp/index.jsx";
 
 function Home() {
-	return (
-		<div>
-			{/* <Login /> */}
-			<SignUp />
-			{/* Exemplos Input */}
-			{/* <Input
+  return (
+    <div>
+      <h1>Home</h1>
+      <p> em construção</p>
+      {/* Exemplos Input */}
+      {/* <Input
 				label="Senha"
 				name="password"
 				type="password"
@@ -32,8 +30,7 @@ function Home() {
         name="atribution"
         // register={register}
       /> */}
-
-			{/* Exemplos Button:
+      {/* Exemplos Button:
 	  	pode ser passado as seguintes props: 
 		width, height, fontSize, fontWeight com os valores desejadodos
 		caso não passe nada, ele virá com um valor predefinido;
@@ -42,14 +39,13 @@ function Home() {
 		deixei um exempo no componente <Button>
 
 	  */}
-
-			{/* <Button width={200} fontWeight={600}>
+      {/* <Button width={200} fontWeight={600}>
         Cadastrar
       </Button>
 
       <Button header>Login</Button> */}
-		</div>
-	);
+    </div>
+  );
 }
 
 export default Home;
