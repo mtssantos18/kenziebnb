@@ -11,6 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import SignupImage from "../../assets/signup.svg";
+import api from "../../services/api";
+import { toast } from "react-toastify";
 
 function SignUp() {
   const history = useHistory();
@@ -43,7 +45,14 @@ function SignUp() {
     const { atribution, cpf, email, name, password, phone } = data;
     const newAccount = { atribution, cpf, email, name, password, phone };
     console.log(newAccount);
-    // history.push("/login");
+    api
+      .post("/signup", newAccount)
+      .then((res) => {
+        toast.success("Usuário cadastrado com sucesso!");
+
+        setTimeout(() => history.push("/login"), 3000);
+      })
+      .catch((err) => toast.error("Email já cadastrado"));
   }
 
   function handleLogin() {
