@@ -6,11 +6,13 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  height: 100%;
+  height: fit-content;
 
   background-color: var(--grey-2);
 
   position: relative;
+
+  padding-bottom: 2rem;
 
   .title {
     padding: 1.5rem;
@@ -27,6 +29,10 @@ export const Container = styled.div`
 
   @media (min-width: 900px) {
     flex-direction: row;
+
+    height: 100%;
+
+    padding: 0;
 
     .title {
       position: absolute;
