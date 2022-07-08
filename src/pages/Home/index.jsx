@@ -1,17 +1,65 @@
-import Button from "../../components/Button/index.jsx";
-import Footer from "../../components/Footer/index.jsx";
-import { FooterStyle } from "../../components/Footer/styles.js";
-import Input from "../../components/Input/index.jsx";
-import LoginForm from "../../components/LoginForm/index.jsx";
-import SelectInput from "../../components/SelectInput/index.jsx";
+import Header from "./../../components/Header";
+import CardHouse from "../../components/CardHouse/index.js";
+import { List, Container } from "./styles.js";
+import mockup from "./../../images/mockup.png";
+import Footer from "../../components/Footer";
+
+const data = [
+  {
+    id: 1,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+  {
+    id: 2,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+  {
+    id: 3,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+  {
+    id: 4,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+  {
+    id: 5,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+];
 
 function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-      <p> em construção</p>
-       <Footer/>
+    <>
+      <Header />
 
+      <Container>
+        <List>
+          {data.map((product) => (
+            <CardHouse key={product.id} product={product} />
+          ))}
+        </List>
+      </Container>
+      <Footer />
       {/* Exemplos Input */}
       {/* <Input
 				label="Senha"
@@ -48,7 +96,7 @@ function Home() {
       </Button>
 
       <Button header>Login</Button> */}
-    </div>
+    </>
   );
 }
 

@@ -69,7 +69,7 @@ export const Container = styled.header`
     height: 90px;
     top: 46px;
     right: 0;
-
+    z-index: 999;
     /* grey-2 */
 
     background: var(--grey-2);
@@ -88,6 +88,7 @@ export const Container = styled.header`
     z-index: -1;
   }
   .containerButtonProfile {
+    z-index: 999;
     height: 100%;
     display: flex;
     flex-direction: column;
