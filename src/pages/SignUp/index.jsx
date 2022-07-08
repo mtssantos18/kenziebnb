@@ -4,16 +4,17 @@ import Input from "../../components/Input";
 import SelectInput from "../../components/SelectInput";
 import Button from "../../components/Button";
 
-import { useHistory } from "react-router-dom";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import SignupImage from "../../assets/signup.svg";
 
+import { useContext } from "react";
+import { UserContext } from "../../providers/User/User";
+
 function SignUp() {
-  const history = useHistory();
+  const { handleNavigation, signUpUser } = useContext(UserContext);
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -42,13 +43,9 @@ function SignUp() {
   function onSubmit(data) {
     const { atribution, cpf, email, name, password, phone } = data;
     const newAccount = { atribution, cpf, email, name, password, phone };
-    console.log(newAccount);
-    // history.push("/login");
+    signUpUser(newAccount);
   }
 
-  function handleLogin() {
-    history.push("/login");
-  }
   return (
     <Container>
       <h1 className="title">KenzieBnB</h1>
@@ -115,7 +112,7 @@ function SignUp() {
             <Button type="submit">Cadastrar</Button>
           </form>
           <p>Já possui cadastro? </p>
-          <button onClick={handleLogin} className="login">
+          <button onClick={() => handleNavigation("/login")} className="login">
             Entre aqui!
           </button>
         </AnimationContainer>

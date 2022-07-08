@@ -1,21 +1,46 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import api from "../../services/api";
 
 export const HomesContext = createContext([]);
 
 export const HomesProvider = ({ children }) => {
   const [homeList, setHomeList] = useState([]);
 
-  function getHomeList() {
-    //get home list from api using axios lib, then use hook useEffect to update the list as the page renders;
+  async function getHomeList() {
+    const response = await api.get("/homes");
+
+    setHomeList(response.data);
   }
 
-  function addHome(home) {
-    //post new house;
-    // setHome([...homes, home]), we're not gonna use it now, because it's just for react;
+  useEffect(() => {
+    getHomeList();
+  }, []);
+
+  async function addHome(home) {
+    try {
+      const response = await api.post("/homes", home);
+
+      toast.success("Casa adicionada com sucesso!");
+    } catch (error) {
+      toast.error("Informação insuficente para adicionar nova casa");
+    }
   }
 
-  function removeHome(id) {
-    //remove one house by id;
+  async function removeHome(id) {
+    try {
+      const token = JSON.parse(localStorage.getItem("@Kenziebnb:token"));
+
+      const response = api.delete(`/homes/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success("Casa removida com sucesso!");
+    } catch {
+      toast.error("Algo deu errado!");
+    }
   }
 
   return (
