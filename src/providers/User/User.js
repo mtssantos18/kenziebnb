@@ -8,7 +8,7 @@ export const UserContext = createContext({});
 export const UserProvider = ({ children }) => {
   const history = useHistory();
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   function handleNavigation(path) {
     history.push(path);
@@ -16,6 +16,7 @@ export const UserProvider = ({ children }) => {
 
   async function signUpUser(formData) {
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await api.post("/signup", formData);
 
       toast.success("Usuário cadastrado com sucesso!");
@@ -29,12 +30,25 @@ export const UserProvider = ({ children }) => {
   async function loginUser(formData) {
     try {
       const response = await api.post("/login", formData);
+      console.log(response);
+
+      setUser(response.data.user);
+
+      localStorage.setItem(
+        "@Kenziebnb:token",
+        JSON.stringify(response.data.accessToken)
+      );
 
       toast.success("Usuário logado com sucesso!");
 
       setTimeout(() => history.push("/"), 3000);
     } catch (error) {
-      toast.error("Email ou senha errada!");
+      console.log(error.response.data);
+      if (error.response.data === "Cannot find user") {
+        toast.error("Email inválido");
+      } else {
+        toast.error("Senha inválida");
+      }
     }
   }
 
