@@ -1,12 +1,63 @@
-import Button from "../../components/Button/index.jsx";
-import Input from "../../components/Input/index.jsx";
-import LoginForm from "../../components/LoginForm/index.jsx";
-import SelectInput from "../../components/SelectInput/index.jsx";
+import Header from "./../../components/Header";
+import CardHouse from "../../components/CardHouse/index.js";
+import { Filter, List, Container } from "./styles.js";
+import mockup from "./../../images/mockup.png";
+
+const data = [
+  {
+    id: 1,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+  {
+    id: 2,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+  {
+    id: 3,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+  {
+    id: 4,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+  {
+    id: 5,
+    img: mockup,
+    title: `Champion Packable Jacket`,
+    description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
+    price: 100,
+    guests: 2,
+  },
+];
 
 function Home() {
   return (
-    <div>
-      <LoginForm />
+    <>
+      <Header />
+
+      <Container>
+        <List>
+          {data.map((product) => (
+            <CardHouse key={product.id} product={product} />
+          ))}
+        </List>
+      </Container>
 
       {/* Exemplos Input */}
       {/* <Input
@@ -30,7 +81,6 @@ function Home() {
         name="atribution"
         // register={register}
       /> */}
-
       {/* Exemplos Button:
 	  	pode ser passado as seguintes props: 
 		width, height, fontSize, fontWeight com os valores desejadodos
@@ -40,13 +90,12 @@ function Home() {
 		deixei um exempo no componente <Button>
 
 	  */}
-
       {/* <Button width={200} fontWeight={600}>
         Cadastrar
       </Button>
 
       <Button header>Login</Button> */}
-    </div>
+    </>
   );
 }
 
