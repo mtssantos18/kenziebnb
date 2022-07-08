@@ -50,12 +50,12 @@ export const CapacityContainer = styled.div`
 	flex-direction: row;
 	gap: 20px;
 
-	button {
+	/* button {
 		outline: 1px solid black;
 		border-radius: 15px;
 		padding: 5px;
 		min-width: 50px;
-	}
+	} */
 `;
 
 export const CheckboxContainer = styled.div`
@@ -68,4 +68,12 @@ export const CheckboxContainer = styled.div`
 		display: flex;
 		gap: 5px;
 	}
+`;
+
+export const SelectButton = styled.button`
+	outline: 1px solid black;
+	border-radius: 15px;
+	padding: 5px;
+	min-width: 50px;
+	background: ${(props) => (props.isSelected ? "blue" : "none")};
 `;
