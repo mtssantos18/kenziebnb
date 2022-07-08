@@ -30,7 +30,7 @@ function LoginForm() {
 	}
 
 	return (
-		<ScreenContainer>
+		<>
 			<Container>
 				<h1>KenzieBnB</h1>
 				<LoginFormStyle onSubmit={handleSubmit(onSubmitFunction)}>
@@ -59,7 +59,7 @@ function LoginForm() {
 					</button>
 				</SignupContainer>
 			</Container>
-		</ScreenContainer>
+		</>
 	);
 }
 

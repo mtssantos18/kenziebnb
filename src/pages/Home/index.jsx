@@ -1,7 +1,8 @@
 import Header from "./../../components/Header";
 import CardHouse from "../../components/CardHouse/index.js";
-import { Filter, List, Container } from "./styles.js";
+import { List, Container } from "./styles.js";
 import mockup from "./../../images/mockup.png";
+import Footer from "../../components/Footer";
 
 const data = [
   {
@@ -58,7 +59,7 @@ function Home() {
           ))}
         </List>
       </Container>
-
+      <Footer />
       {/* Exemplos Input */}
       {/* <Input
 				label="Senha"
