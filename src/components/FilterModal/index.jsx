@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
 	Container,
 	FilterContainer,
-	RadioContainer,
-	CapacityContainer,
 	CheckboxContainer,
 	RangeInfoContainer,
-	SelectButton,
+	SelectButtonCapacity,
+	SelectButtonReview,
+	SelectButtonContainer,
 } from "./style";
 import {
 	RangeSlider,
@@ -14,6 +14,7 @@ import {
 	RangeSliderFilledTrack,
 	RangeSliderThumb,
 } from "@chakra-ui/react";
+import { AiFillStar } from "react-icons/ai";
 import Button from "../Button";
 
 const homes = [
@@ -67,8 +68,8 @@ const homes = [
 			airConditioning: true,
 		},
 		reviews: 5,
-		price: 663,
-		capacity: 2,
+		price: 300,
+		capacity: 9,
 		id: 1,
 		imgs: [
 			"https://a0.muscache.com/im/pictures/miso/Hosting-24644722/original/2aa59f85-def4-45cd-b0f8-be61eb48dde1.jpeg?im_w=1200",
@@ -84,7 +85,8 @@ function FilterModal() {
 	const [priceRange, setPriceRange] = useState([0, 5000]);
 	const [minPrice, setMinPrice] = useState(priceRange[0]);
 	const [maxPrice, setMaxPrice] = useState(priceRange[1]);
-	const [buttonSelectionState, setButtonSelectionState] = useState([
+	const [filterObj, setFilterObj] = useState({});
+	const [capacityElements, setCapacityElements] = useState([
 		{ label: "Sem Filtro", state: true },
 		{ label: 1, state: false },
 		{ label: 2, state: false },
@@ -92,7 +94,21 @@ function FilterModal() {
 		{ label: 4, state: false },
 		{ label: "5+", state: false },
 	]);
-	const [filterObj, setFilterObj] = useState({ capacity: 0 });
+	const [reviewElements, setReviewElements] = useState([
+		{ label: "Sem Filtro", state: true, hasStar: false },
+		{ label: 1, state: false, hasStar: true },
+		{ label: 2, state: false, hasStar: true },
+		{ label: 3, state: false, hasStar: true },
+		{ label: 4, state: false, hasStar: true },
+		{ label: 5, state: false, hasStar: true },
+	]);
+	const [confortsElements, setConfortsElements] = useState([
+		{ label: "Wi-Fi", value: "wifi", state: false },
+		{ label: "Estacionamento", value: "parking", state: false },
+		{ label: "Animais", value: "pet", state: false },
+		{ label: "Ar Condicionado", value: "airConditioning", state: false },
+		{ label: "Piscina", value: "pool", state: false },
+	]);
 
 	function onChangeEventSlider(priceRange) {
 		setMinPrice(priceRange[0]);
@@ -104,7 +120,7 @@ function FilterModal() {
 	}
 
 	function capacityButtonEvent(buttonIndex) {
-		setButtonSelectionState([
+		setCapacityElements([
 			{ label: "Sem Filtro", state: false },
 			{ label: 1, state: false },
 			{ label: 2, state: false },
@@ -113,8 +129,8 @@ function FilterModal() {
 			{ label: "5+", state: false },
 		]);
 
-		setButtonSelectionState((prevState) => {
-			const copy = [...prevState];
+		setCapacityElements((currentCapacityElem) => {
+			const copy = [...currentCapacityElem];
 
 			const newArray = copy.map((elem, index) => {
 				if (index === buttonIndex) {
@@ -125,11 +141,86 @@ function FilterModal() {
 
 			return newArray;
 		});
-		// console.log(buttonSelectionState);
+		// console.log(capacityElements);
+	}
+
+	function reviewButtonEvent(buttonIndex) {
+		setReviewElements([
+			{ label: "Sem Filtro", state: false, hasStar: false },
+			{ label: 1, state: false, hasStar: true },
+			{ label: 2, state: false, hasStar: true },
+			{ label: 3, state: false, hasStar: true },
+			{ label: 4, state: false, hasStar: true },
+			{ label: 5, state: false, hasStar: true },
+		]);
+
+		setReviewElements((currentReviewElem) => {
+			const copy = [...currentReviewElem];
+
+			const newArray = copy.map((elem, index) => {
+				if (index === buttonIndex) {
+					return { ...elem, state: true };
+				}
+				return elem;
+			});
+
+			return newArray;
+		});
+		// console.log(capacityElements);
 	}
 
 	function applyFilter() {
-		// buttonSelectionState
+		const capacityIndex = capacityElements.findIndex(
+			(elem, index) => elem.state === true
+		);
+
+		const reviewIndex = reviewElements.findIndex(
+			(elem, index) => elem.state === true
+		);
+
+		let filterHomes = [];
+
+		setFilterObj({
+			...filterObj,
+			capacity: capacityIndex,
+			minPrice: minPrice,
+			maxPrice: maxPrice,
+			reviews: reviewIndex,
+		});
+
+		setFilterObj((currFilterObj) => {
+			filterHomes = homes.filter((home) => {
+				return (
+					priceFilter(currFilterObj, home) &&
+					capacityFilter(currFilterObj, home) &&
+					reviewFilter(currFilterObj, home)
+				);
+			});
+
+			console.log(filterHomes);
+			return currFilterObj;
+		});
+	}
+
+	function capacityFilter(currFilterObj, home) {
+		if (currFilterObj.capacity === 0) return true;
+		if (currFilterObj.capacity === 5)
+			return home.capacity > currFilterObj.capacity;
+		return home.capacity === currFilterObj.capacity;
+	}
+
+	function priceFilter(currFilterObj, home) {
+		if (
+			home.price >= currFilterObj.minPrice &&
+			home.price <= currFilterObj.maxPrice
+		)
+			return true;
+		return false;
+	}
+
+	function reviewFilter(currFilterObj, home) {
+		if (currFilterObj.reviews === 0) return true;
+		return home.reviews === currFilterObj.reviews;
 	}
 
 	return (
@@ -162,62 +253,47 @@ function FilterModal() {
 			</FilterContainer>
 			<FilterContainer>
 				<h3>Avaliaçao</h3>
-				<RadioContainer>
-					<div>
-						<input
-							type="radio"
-							name="filter_review"
-							onClick={() => radioSelectEvent(1)}
-						/>
-						<label>1</label>
-					</div>
-					<div>
-						<input type="radio" name="filter_review" />
-						<label>2</label>
-					</div>
-					<div>
-						<input type="radio" name="filter_review" />
-						<label>3</label>
-					</div>
-					<div>
-						<input type="radio" name="filter_review" />
-						<label>4</label>
-					</div>
-					<div>
-						<input type="radio" name="filter_review" />
-						<label>5</label>
-					</div>
-				</RadioContainer>
+				<SelectButtonContainer>
+					{reviewElements?.map((buttonInfo, index) => (
+						<SelectButtonReview
+							key={index}
+							isSelected={buttonInfo.state}
+							onClick={() => reviewButtonEvent(index)}
+						>
+							<p>{buttonInfo.label}</p>
+							{buttonInfo.hasStar && (
+								<AiFillStar
+									size={17}
+									color="rgb(228, 228, 15)"
+								/>
+							)}
+						</SelectButtonReview>
+					))}
+				</SelectButtonContainer>
 			</FilterContainer>
 			<FilterContainer>
 				<h3>Capacidade</h3>
-				<CapacityContainer>
-					{buttonSelectionState?.map((buttonInfo, index) => (
-						<SelectButton
+				<SelectButtonContainer>
+					{capacityElements?.map((buttonInfo, index) => (
+						<SelectButtonCapacity
 							key={index}
 							isSelected={buttonInfo.state}
 							onClick={() => capacityButtonEvent(index)}
 						>
 							{buttonInfo.label}
-						</SelectButton>
+						</SelectButtonCapacity>
 					))}
-				</CapacityContainer>
+				</SelectButtonContainer>
 			</FilterContainer>
 			<FilterContainer>
 				<h3>Comodidade</h3>
 				<CheckboxContainer>
-					<div>
-						<input type="checkbox" value="wi-fi" />
-						<label>Wi-Fi</label>
-					</div>
-					<div>
-						<input type="checkbox" value="parking" />
-						<label>Estacionamento</label>
-					</div>
-					<div>
-						<input type="checkbox" value="pool" />
-						<label>Piscina</label>
-					</div>
+					{confortsElements?.map((buttonInfo, index) => (
+						<div key={index}>
+							<input type="checkbox" value={buttonInfo.value} />
+							<label>{buttonInfo.label}</label>
+						</div>
+					))}
 				</CheckboxContainer>
 			</FilterContainer>
 			<Button onClick={applyFilter}>Aplicar filtro</Button>

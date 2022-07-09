@@ -10,6 +10,7 @@ import Footer from "../../components/Footer";
 import { useContext } from "react";
 import { HomesContext } from "../../providers/Homes/Homes";
 import Button from "../../components/Button";
+import FilterModal from "../../components/FilterModal";
 
 const data = [
 	{
@@ -59,6 +60,7 @@ function Home() {
 
 	return (
 		<>
+			{/* <FilterModal /> */}
 			<Header />
 
 			<Container>

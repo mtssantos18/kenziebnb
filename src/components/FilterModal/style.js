@@ -5,7 +5,7 @@ export const Container = styled.div`
 	max-width: 500px;
 	display: flex;
 	flex-direction: column;
-	height: 400px;
+	/* height: 400px; */
 	outline: 1px solid red;
 	gap: 20px;
 	padding: 10px;
@@ -14,10 +14,6 @@ export const Container = styled.div`
 export const FilterContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-
-	input {
-		outline: 1px solid black;
-	}
 `;
 
 export const RangeInfoContainer = styled.div`
@@ -34,34 +30,16 @@ export const RangeInfoContainer = styled.div`
 	}
 `;
 
-export const RadioContainer = styled.div`
+export const SelectButtonContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	gap: 20px;
-
-	div {
-		display: flex;
-		gap: 5px;
-	}
-`;
-
-export const CapacityContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	gap: 20px;
-
-	/* button {
-		outline: 1px solid black;
-		border-radius: 15px;
-		padding: 5px;
-		min-width: 50px;
-	} */
 `;
 
 export const CheckboxContainer = styled.div`
 	display: flex;
 	flex-direction: row;
-	gap: 10px;
+	gap: 20px;
 	flex-wrap: wrap;
 
 	div {
@@ -70,7 +48,19 @@ export const CheckboxContainer = styled.div`
 	}
 `;
 
-export const SelectButton = styled.button`
+export const SelectButtonReview = styled.button`
+	outline: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	border-radius: 15px;
+	padding: 5px;
+	min-width: 50px;
+	background: ${(props) => (props.isSelected ? "blue" : "none")};
+`;
+
+export const SelectButtonCapacity = styled.button`
 	outline: 1px solid black;
 	border-radius: 15px;
 	padding: 5px;
