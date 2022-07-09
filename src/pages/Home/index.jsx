@@ -10,8 +10,12 @@ import Footer from "../../components/Footer";
 import { useContext } from "react";
 import { HomesContext } from "../../providers/Homes/Homes";
 import Button from "../../components/Button";
+<<<<<<< HEAD
 import FilterModal from "../../components/FilterModal";
 import { IoFilterOutline } from "react-icons/io5";
+=======
+import Map from "../../components/Map";
+>>>>>>> 1d0a3a26cc8cc599ef5f494e98c43830b2352b1d
 
 const data = [
 	{
@@ -77,6 +81,7 @@ function Home() {
 				</ContentContainer>
 			</Container>
 
+<<<<<<< HEAD
 			{/* <Button header onClick={() => console.log(homeList)}>
 				console homeList
 			</Button> */}
@@ -84,6 +89,15 @@ function Home() {
 			<Footer />
 		</>
 	);
+=======
+      <Button header onClick={() => console.log(homeList)}>
+        console homeList
+      </Button>
+      <Map />
+      <Footer />
+    </>
+  );
+>>>>>>> 1d0a3a26cc8cc599ef5f494e98c43830b2352b1d
 }
 
 export default Home;
