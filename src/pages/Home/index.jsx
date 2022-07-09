@@ -1,4 +1,5 @@
 import Button from "../../components/Button/index.jsx";
+import CardRent from "../../components/CardRent/index.jsx";
 import Footer from "../../components/Footer/index.jsx";
 import { FooterStyle } from "../../components/Footer/styles.js";
 import Input from "../../components/Input/index.jsx";
@@ -6,11 +7,8 @@ import LoginForm from "../../components/LoginForm/index.jsx";
 import SelectInput from "../../components/SelectInput/index.jsx";
 
 function Home() {
-  return (
-    <div>
-      <h1>Home</h1>
-      <p> em construção</p>
-       <Footer/>
+  return ( <div>
+      <CardRent />
 
       {/* Exemplos Input */}
       {/* <Input
