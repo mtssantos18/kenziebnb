@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   CheckinCheckoutContainer,
@@ -16,6 +16,8 @@ import "react-date-range/dist/theme/default.css";
 import Button from "../Button";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { RentsContext } from "../../providers/Rents/Rents";
+import { UserContext } from "../../providers/User/User";
 
 function RentModal({ setShowModal, house }) {
   const history = useHistory();
@@ -30,22 +32,19 @@ function RentModal({ setShowModal, house }) {
 
   const [successRent, setSuccessRent] = useState(false);
   const [disabledDays, setDisabledDays] = useState([]);
+  const [user, setUser] = useState({});
+  const { rents, bookHouse } = useContext(RentsContext);
+  const { getUser } = useContext(UserContext);
 
-  function checkDates(rents) {
-    const dates = [
-      {
-        startDate: new Date("2022/7/10"),
-        endDate: new Date("2022/7/15"),
-      },
-      {
-        startDate: new Date("2022/7/20"),
-        endDate: new Date("2022/7/25"),
-      },
-    ];
+  function checkDates(books) {
+    console.log(books);
     let totalDisabled = [new Date()];
-    for (let j = 0; j < dates.length; j++) {
-      let disabled = [dates[j].startDate];
-      let diference = differenceInDays(dates[j].endDate, dates[j].startDate);
+    for (let j = 0; j < books.length; j++) {
+      let disabled = [books[j].startDate];
+      let diference = differenceInDays(
+        new Date(books[j].endDate),
+        new Date(books[j].startDate)
+      );
       for (let i = 0; i < diference; i++) {
         disabled.push(addDays(new Date(disabled[disabled.length - 1]), 1));
       }
@@ -56,9 +55,11 @@ function RentModal({ setShowModal, house }) {
 
   function handleRent(selection) {
     selection[0].totalDays =
-      differenceInDays(selection[0].endDate, selection[0].startDate) + 1;
-    selection[0].totalPrice = selection[0].totalDays * 1254;
-    console.log(selection);
+      differenceInDays(
+        new Date(selection[0].endDate),
+        new Date(selection[0].startDate)
+      ) + 1;
+    selection[0].totalPrice = selection[0].totalDays * house.price;
     setSelectDate([...selection]);
   }
 
@@ -68,27 +69,27 @@ function RentModal({ setShowModal, house }) {
       return;
     }
 
-    const user = [
-      {
-        id: 0,
-      },
-      //Aguardar user da context
-    ];
     const rent = {
-      startDate: selectDate[0].startDate,
-      endDate: selectDate[0].endDate,
-      houseId: 5,
-      tenantId: user[0].id,
+      startDate: new Date(selectDate[0].startDate),
+      endDate: new Date(selectDate[0].endDate),
+      houseId: house.id,
+      tenantId: user.id,
       status: "pendent",
     };
     setSuccessRent(true);
+    bookHouse(rent);
     setTimeout(() => history.push("/rents"), 2500);
     console.log(rent);
   }
 
   useEffect(() => {
-    checkDates();
-    // console.log(selectDate);
+    const datesOff = rents.filter((e) => e.houseId === house.id);
+    checkDates(datesOff);
+    async function reloadUser() {
+      const newUser = await getUser(localStorage.getItem("@Kenziebnb:id"));
+      setUser(newUser);
+    }
+    reloadUser();
   }, [, selectDate]);
 
   return (

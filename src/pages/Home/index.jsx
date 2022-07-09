@@ -10,6 +10,7 @@ import Footer from "../../components/Footer";
 import { useContext } from "react";
 import { HomesContext } from "../../providers/Homes/Homes";
 import Button from "../../components/Button";
+import Map from "../../components/Map";
 
 const data = [
   {
@@ -72,7 +73,7 @@ function Home() {
       <Button header onClick={() => console.log(homeList)}>
         console homeList
       </Button>
-
+      <Map />
       <Footer />
     </>
   );

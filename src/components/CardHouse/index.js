@@ -1,12 +1,19 @@
 import { Container, ContainerEvaluation, Price } from "./styles";
-import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 import Button from "../Button";
+import { useHistory } from "react-router-dom";
 
 function CardHouse({ product }) {
   const formatValue = Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
   }).format(product.price);
+
+  const history = useHistory();
+
+  function handleClickDetails() {
+    history.push("/casa/4");
+  }
 
   return (
     <Container>
@@ -29,7 +36,7 @@ function CardHouse({ product }) {
         <AiFillStar />
       </ContainerEvaluation>
 
-      <Button>Ver detalhes</Button>
+      <Button onClick={handleClickDetails}>Ver detalhes</Button>
     </Container>
   );
 }
