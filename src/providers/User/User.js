@@ -14,6 +14,20 @@ export const UserProvider = ({ children }) => {
     history.push(path);
   }
 
+  async function getUser(id) {
+    try {
+      const response = await api.get("/users", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("@Kenziebnb:token")}`,
+        },
+      });
+      const userSelected = response.data.find((e) => e.id === +id);
+      return userSelected;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function signUpUser(formData) {
     try {
       // eslint-disable-next-line no-unused-vars
@@ -34,10 +48,8 @@ export const UserProvider = ({ children }) => {
 
       setUser(response.data.user);
 
-      localStorage.setItem(
-        "@Kenziebnb:token",
-        JSON.stringify(response.data.accessToken)
-      );
+      localStorage.setItem("@Kenziebnb:token", response.data.accessToken);
+      localStorage.setItem("@Kenziebnb:id", response.data.user.id);
 
       toast.success("Usuário logado com sucesso!");
 
@@ -54,7 +66,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, handleNavigation, signUpUser, loginUser }}
+      value={{ user, handleNavigation, signUpUser, loginUser, getUser }}
     >
       {children}
     </UserContext.Provider>
