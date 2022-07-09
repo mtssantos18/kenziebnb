@@ -10,8 +10,7 @@ function Header() {
   const history = useHistory();
 
   useEffect(() => {
-    localStorage.setItem("token", "djasodjaso@31234");
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("@Kenziebnb:token");
 
     if (token) {
       setLogged(true);
@@ -23,6 +22,8 @@ function Header() {
   }
   function handleLogout() {
     toast.success("Você saiu!");
+    localStorage.clear();
+    setLogged(false);
     setTimeout(() => {
       history.push("/");
     }, 2500);

@@ -12,7 +12,7 @@ function CardHouse({ product }) {
   const history = useHistory();
 
   function handleClickDetails() {
-    history.push("/casa/4");
+    history.push("/house/4");
   }
 
   return (

@@ -44,9 +44,9 @@ function House() {
 
   return (
     <Container>
+      {showModal && <RentModal house={house} setShowModal={setShowModal} />}
       {house && (
         <>
-          {showModal && <RentModal house={house} setShowModal={setShowModal} />}
           <Header />
           <div className="Container">
             <div className="btnContainer">

@@ -5,6 +5,7 @@ export const Container = styled.div`
   width: 100%;
   margin-top: 10px;
   .grades {
+    display: flex;
     svg {
       font-size: 25px;
       margin: 1rem 0;

@@ -40,7 +40,7 @@ function RentModal({ setShowModal, house }) {
     console.log(books);
     let totalDisabled = [new Date()];
     for (let j = 0; j < books.length; j++) {
-      let disabled = [books[j].startDate];
+      let disabled = [new Date(books[j].startDate)];
       let diference = differenceInDays(
         new Date(books[j].endDate),
         new Date(books[j].startDate)

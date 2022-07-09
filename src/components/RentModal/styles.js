@@ -4,10 +4,11 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
-  z-index: 999999;
-  overflow: hidden;
-
+  position: fixed;
+  inset: 0;
+  z-index: 99999999999;
+  overflow: none;
+  backdrop-filter: blur(5px);
   .containerModal {
     width: 95%;
     max-width: 400px;

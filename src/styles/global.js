@@ -40,4 +40,7 @@ export default createGlobalStyle`
     a{
         text-decoration: none;
     }
+    .chakra-ui-light {
+    width: 100%;
+  }
 `;
