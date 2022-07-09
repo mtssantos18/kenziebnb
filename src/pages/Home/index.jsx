@@ -1,7 +1,7 @@
 import Header from "./../../components/Header";
 import CardHouse from "../../components/CardHouse/index.js";
 
-import { List, Container } from "./styles.js";
+import { List, Container, FilterButton, ContentContainer } from "./styles.js";
 
 import mockup from "./../../images/mockup.png";
 
@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { HomesContext } from "../../providers/Homes/Homes";
 import Button from "../../components/Button";
 import FilterModal from "../../components/FilterModal";
+import { IoFilterOutline } from "react-icons/io5";
 
 const data = [
 	{
@@ -60,20 +61,25 @@ function Home() {
 
 	return (
 		<>
-			{/* <FilterModal /> */}
 			<Header />
 
 			<Container>
-				<List>
-					{data.map((product) => (
-						<CardHouse key={product.id} product={product} />
-					))}
-				</List>
+				<ContentContainer>
+					<FilterButton>
+						<IoFilterOutline size={22} />
+						<p>Filtros</p>
+					</FilterButton>
+					<List>
+						{data.map((product) => (
+							<CardHouse key={product.id} product={product} />
+						))}
+					</List>
+				</ContentContainer>
 			</Container>
 
-			<Button header onClick={() => console.log(homeList)}>
+			{/* <Button header onClick={() => console.log(homeList)}>
 				console homeList
-			</Button>
+			</Button> */}
 
 			<Footer />
 		</>
