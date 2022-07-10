@@ -45,7 +45,7 @@ function Home() {
 					</FilterButton>
 					<List>
 						{filterList.length === 0 ? (
-							<div className="Hola">
+							<div className="no_filter_message">
 								<HiOutlineEmojiSad size={40} />
 								<h1>Não há casas com o filtro aplicado.</h1>
 							</div>

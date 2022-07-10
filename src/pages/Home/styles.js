@@ -39,23 +39,28 @@ export const List = styled.ul`
 	column-gap: 20px;
 	padding: 20px 0px 50px 5px;
 
-	.Hola {
+	.no_filter_message {
 		/* text-align: center; */
 		display: flex;
+		width: 100%;
 		flex-direction: column;
 		align-items: center;
 		font-size: 24px;
-		width: 200px;
 		gap: 10px;
 		color: var(--grey-4);
+
+		h1 {
+			text-align: center;
+		}
+
+		@media (min-width: 650px) {
+		}
 	}
 
 	@media (min-width: 650px) {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		/* justify-content: center; */
-		/* align-items: center; */
 		max-width: 950px;
 		height: auto;
 		flex-wrap: wrap;
