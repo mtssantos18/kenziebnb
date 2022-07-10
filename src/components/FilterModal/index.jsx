@@ -19,6 +19,7 @@ import { AiFillStar } from "react-icons/ai";
 import { MdGraphicEq } from "react-icons/md";
 import Button from "../Button";
 import { FilterContext } from "../../providers/Filter/Filter";
+import { HomesContext } from "../../providers/Homes/Homes";
 
 function FilterModal() {
 	const {
@@ -44,7 +45,7 @@ function FilterModal() {
 						aria-label={["min", "max"]}
 						min={priceRange[0]}
 						max={priceRange[1]}
-						defaultValue={priceRange}
+						defaultValue={[minPrice, maxPrice]}
 						onChange={onChangeEventSlider}
 					>
 						<RangeSliderTrack bg="blue.100">
@@ -121,6 +122,7 @@ function FilterModal() {
 									type="checkbox"
 									value={buttonInfo.value}
 									onChange={() => confortButtonEvent(index)}
+									checked={buttonInfo.state}
 								/>
 								<label>{buttonInfo.label}</label>
 							</div>

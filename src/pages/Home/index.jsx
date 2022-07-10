@@ -7,81 +7,51 @@ import mockup from "./../../images/mockup.png";
 
 import Footer from "../../components/Footer";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HomesContext } from "../../providers/Homes/Homes";
 import Button from "../../components/Button";
-<<<<<<< HEAD
 import FilterModal from "../../components/FilterModal";
 import { IoFilterOutline } from "react-icons/io5";
-=======
-import Map from "../../components/Map";
->>>>>>> 1d0a3a26cc8cc599ef5f494e98c43830b2352b1d
-
-const data = [
-	{
-		id: 1,
-		img: mockup,
-		title: `Champion Packable Jacket`,
-		description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
-		price: 100,
-		guests: 2,
-	},
-	{
-		id: 2,
-		img: mockup,
-		title: `Champion Packable Jacket`,
-		description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
-		price: 100,
-		guests: 2,
-	},
-	{
-		id: 3,
-		img: mockup,
-		title: `Champion Packable Jacket`,
-		description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
-		price: 100,
-		guests: 2,
-	},
-	{
-		id: 4,
-		img: mockup,
-		title: `Champion Packable Jacket`,
-		description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
-		price: 100,
-		guests: 2,
-	},
-	{
-		id: 5,
-		img: mockup,
-		title: `Champion Packable Jacket`,
-		description: `Proteja-se dos elementos com esta jaqueta embalável Champion. Esta jaqueta de poliést...`,
-		price: 100,
-		guests: 2,
-	},
-];
+import { FilterContext } from "../../providers/Filter/Filter";
 
 function Home() {
-	const { homeList } = useContext(HomesContext);
+	const { homeList, showFilterModal, setShowFilterModal } =
+		useContext(HomesContext);
+
+	const { filterList } = useContext(FilterContext);
+
+	// useEffect(()=> {
+
+	// },[])
+
+	function onCLickFilter() {
+		setShowFilterModal(true);
+	}
 
 	return (
 		<>
 			<Header />
 
 			<Container>
+				{showFilterModal && <FilterModal />}
+
 				<ContentContainer>
-					<FilterButton>
+					<FilterButton onClick={onCLickFilter}>
 						<IoFilterOutline size={22} />
 						<p>Filtros</p>
 					</FilterButton>
 					<List>
-						{data.map((product) => (
-							<CardHouse key={product.id} product={product} />
-						))}
+						{filterList
+							? filterList.map((product, index) => (
+									<CardHouse key={index} product={product} />
+							  ))
+							: homeList.map((product, index) => (
+									<CardHouse key={index} product={product} />
+							  ))}
 					</List>
 				</ContentContainer>
 			</Container>
 
-<<<<<<< HEAD
 			{/* <Button header onClick={() => console.log(homeList)}>
 				console homeList
 			</Button> */}
@@ -89,15 +59,6 @@ function Home() {
 			<Footer />
 		</>
 	);
-=======
-      <Button header onClick={() => console.log(homeList)}>
-        console homeList
-      </Button>
-      <Map />
-      <Footer />
-    </>
-  );
->>>>>>> 1d0a3a26cc8cc599ef5f494e98c43830b2352b1d
 }
 
 export default Home;

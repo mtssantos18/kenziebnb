@@ -1,12 +1,14 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { HomesContext } from "../Homes/Homes";
 
 export const FilterContext = createContext([]);
 
 export const FilterProvider = ({ children }) => {
-	const { homeList } = useContext(HomesContext);
+	const { homeList, setHomeList, showFilterModal, setShowFilterModal } =
+		useContext(HomesContext);
 
-	const [filterList, setFilterList] = useState([]);
+	const [filterList, setFilterList] = useState(false);
+
 	const [priceRange, setPriceRange] = useState([0, 5000]);
 	const [minPrice, setMinPrice] = useState(priceRange[0]);
 	const [maxPrice, setMaxPrice] = useState(priceRange[1]);
@@ -142,15 +144,9 @@ export const FilterProvider = ({ children }) => {
 
 			setFilterList(filterHomes);
 
-			//Revisar
-			setFilterList((currentFilterList) => {
-				console.log(currentFilterList);
-
-				return currentFilterList;
-			});
-
 			return currFilterObj;
 		});
+		setShowFilterModal(false);
 	}
 
 	function capacityFilter(currFilterObj, home) {
@@ -191,6 +187,7 @@ export const FilterProvider = ({ children }) => {
 	return (
 		<FilterContext.Provider
 			value={{
+				filterList,
 				onChangeEventSlider,
 				capacityButtonEvent,
 				priceRange,
