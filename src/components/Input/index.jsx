@@ -3,7 +3,15 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useContext, useState } from "react";
 import { InputContext } from "../../providers/Input/Input.js";
 
-function Input({ label, name, type, placeholder, register, error }) {
+function Input({
+  label,
+  name,
+  type,
+  placeholder,
+  register,
+  error,
+  defaultValue,
+}) {
   const { showPassword, inputType, onClickShowPassword } =
     useContext(InputContext);
 
@@ -15,6 +23,7 @@ function Input({ label, name, type, placeholder, register, error }) {
           placeholder={placeholder}
           {...register(name)}
           type={type === "password" ? inputType : type}
+          defaultValue={defaultValue}
         />
         {name === "password" &&
           (showPassword ? (

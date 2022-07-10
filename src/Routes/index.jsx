@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "../pages/Home/index.jsx";
 import House from "../pages/House/index.jsx";
 import Login from "../pages/Login/index.jsx";
+import { MyPanel } from "../pages/MyPanel/index.jsx";
 import SignUp from "../pages/SignUp/index.jsx";
 
 function Routes() {
@@ -19,6 +20,9 @@ function Routes() {
       </Route>
       <Route path="/house/:id">
         <House />
+      </Route>
+      <Route path="/mypanel">
+        <MyPanel />
       </Route>
     </Switch>
   );
