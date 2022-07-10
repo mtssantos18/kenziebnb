@@ -10,6 +10,7 @@ export const ScreenBackground = styled.div`
 	background: rgba(0, 0, 0, 0.3);
 	position: fixed;
 	inset: 0;
+	padding: 5px 10px;
 `;
 
 export const Container = styled.div`
