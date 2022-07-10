@@ -1,7 +1,13 @@
 import Header from "./../../components/Header";
 import CardHouse from "../../components/CardHouse/index.js";
 
-import { List, Container, FilterButton, ContentContainer } from "./styles.js";
+import {
+	List,
+	Container,
+	FilterButton,
+	ContentContainer,
+	FooterContainer,
+} from "./styles.js";
 
 import mockup from "./../../images/mockup.png";
 
@@ -12,6 +18,7 @@ import { HomesContext } from "../../providers/Homes/Homes";
 import Button from "../../components/Button";
 import FilterModal from "../../components/FilterModal";
 import { IoFilterOutline } from "react-icons/io5";
+import { HiOutlineEmojiSad } from "react-icons/hi";
 import { FilterContext } from "../../providers/Filter/Filter";
 
 function Home() {
@@ -19,10 +26,6 @@ function Home() {
 		useContext(HomesContext);
 
 	const { filterList } = useContext(FilterContext);
-
-	// useEffect(()=> {
-
-	// },[])
 
 	function onCLickFilter() {
 		setShowFilterModal(true);
@@ -41,22 +44,23 @@ function Home() {
 						<p>Filtros</p>
 					</FilterButton>
 					<List>
-						{filterList
-							? filterList.map((product, index) => (
-									<CardHouse key={index} product={product} />
-							  ))
-							: homeList.map((product, index) => (
-									<CardHouse key={index} product={product} />
-							  ))}
+						{filterList.length === 0 ? (
+							<div className="no_filter_message">
+								<HiOutlineEmojiSad size={40} />
+								<h1>Não há casas com o filtro aplicado.</h1>
+							</div>
+						) : filterList ? (
+							filterList.map((product, index) => (
+								<CardHouse key={index} product={product} />
+							))
+						) : (
+							homeList.map((product, index) => (
+								<CardHouse key={index} product={product} />
+							))
+						)}
 					</List>
 				</ContentContainer>
 			</Container>
-
-			{/* <Button header onClick={() => console.log(homeList)}>
-				console homeList
-			</Button> */}
-
-			<Footer />
 		</>
 	);
 }

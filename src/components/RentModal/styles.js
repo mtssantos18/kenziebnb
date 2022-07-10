@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-<<<<<<< HEAD
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.7);
-	position: absolute;
-	z-index: 999999;
-	overflow: hidden;
-
+	position: fixed;
+	inset: 0;
+	z-index: 99999999999;
+	overflow: none;
+	backdrop-filter: blur(5px);
 	.containerModal {
 		width: 95%;
 		max-width: 400px;
@@ -19,26 +19,6 @@ export const Container = styled.div`
 		position: absolute;
 		inset: 0;
 		margin: auto;
-=======
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  inset: 0;
-  z-index: 99999999999;
-  overflow: none;
-  backdrop-filter: blur(5px);
-  .containerModal {
-    width: 95%;
-    max-width: 400px;
-    height: 530px;
-    background-color: #fff;
-    border-radius: 15px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    position: absolute;
-    inset: 0;
-    margin: auto;
->>>>>>> 66333b8d078608a0d1fd399fff1cd13ee2883a75
 
 		.btnModalRent {
 			width: 95%;

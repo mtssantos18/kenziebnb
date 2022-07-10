@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-	max-width: 280px;
+	width: 280px;
 	height: 420px;
 	display: flex;
 	flex-direction: column;
-	border: 1px solid black;
+	outline: 1px solid var(--grey-3);
 	border-radius: 20px;
-	box-shadow: 1px 4px 9px rgba(0, 0, 0, 0.12);
-	margin-left: 20px;
+	box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.3);
 	position: relative;
+	box-sizing: border-box;
+	transition: 0.3s;
+
+	&:hover {
+		outline: 3px solid var(--blue-3);
+		scale: 1.03;
+	}
 
 	button {
 		width: 200px;
@@ -60,12 +66,15 @@ export const Container = styled.div`
 			align-items: center;
 			border-radius: 20px 20px 0px 0px;
 		}
-	}
 
-	@media (min-width: 900px) {
-		min-width: 280px;
-		height: 400px;
-		margin-bottom: 3rem;
+		.mySwiper,
+		.containerImgs,
+		.slider,
+		.swiper-wrapper {
+			border-radius: 20px 20px 0px 0px;
+			padding: 0;
+			width: 100%;
+		}
 	}
 `;
 
@@ -76,6 +85,8 @@ export const ContainerEvaluation = styled.div`
 	flex-direction: row;
 	gap: 0.5rem;
 	margin-top: 20px;
+	overflow: hidden;
+
 	svg {
 		color: #ffe600;
 		font-size: 2rem;
