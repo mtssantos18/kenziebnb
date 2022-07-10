@@ -11,6 +11,8 @@ import { Conforts } from "../../components/Conforts";
 import Map from "../../components/Map";
 import Button from "../../components/Button";
 import RentModal from "../../components/RentModal";
+import api from "../../services/api";
+import { toast } from "react-toastify";
 
 function House() {
   const selected = useParams();
@@ -35,8 +37,20 @@ function House() {
   }, []);
 
   function handleClickBtnRent() {
+    const response = api
+      .get("/users", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("@Kenziebnb:token")}`,
+        },
+      })
+      .catch((err) => err.response.data);
+
     if (!localStorage.getItem("@Kenziebnb:token")) {
       history.push("/login");
+    } else if (response) {
+      toast.error("Sessão expirada");
+      localStorage.clear();
+      setTimeout(() => history.push("/login"), 2500);
     } else {
       setShowModal(true);
     }

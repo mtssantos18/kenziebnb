@@ -33,7 +33,7 @@ function Header() {
     setModalProfile(!modalProfile);
   }
   function handleMyProfile() {
-    history.push("/em breve");
+    history.push("/mypanel");
   }
   return (
     <Container>

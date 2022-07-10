@@ -1,14 +1,15 @@
 import { createContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import api from "../../services/api";
 
 export const RentsContext = createContext([]);
 
 export const RentsProvider = ({ children }) => {
   const [rents, setRents] = useState([]);
-
+  const history = useHistory();
   useEffect(() => {
     const token = localStorage.getItem("@Kenziebnb:token");
-    console.log(rents);
     api
       .get("/rents", {
         headers: {

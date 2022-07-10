@@ -73,12 +73,12 @@ function RentModal({ setShowModal, house }) {
       startDate: new Date(selectDate[0].startDate),
       endDate: new Date(selectDate[0].endDate),
       houseId: house.id,
-      tenantId: user.id,
+      tenantId: user?.id,
       status: "pendent",
     };
     setSuccessRent(true);
     bookHouse(rent);
-    setTimeout(() => history.push("/rents"), 2500);
+    setTimeout(() => history.push("/mypanel"), 2500);
     console.log(rent);
   }
 

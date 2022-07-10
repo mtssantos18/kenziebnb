@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { set } from "date-fns";
+import { createContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../services/api";
@@ -22,11 +23,16 @@ export const UserProvider = ({ children }) => {
         },
       });
       const userSelected = response.data.find((e) => e.id === +id);
+      setUser(userSelected);
       return userSelected;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   }
+
+  useEffect(() => {
+    getUser(localStorage.getItem("@Kenziebnb:id"));
+  }, []);
 
   async function signUpUser(formData) {
     try {
@@ -53,7 +59,13 @@ export const UserProvider = ({ children }) => {
 
       toast.success("Usuário logado com sucesso!");
 
-      setTimeout(() => history.push("/"), 3000);
+      setTimeout(() => {
+        if (response.data.user.atribution === "host") {
+          history.push("/mypanel");
+        } else {
+          history.push("/");
+        }
+      }, 3000);
     } catch (error) {
       console.log(error.response.data);
       if (error.response.data === "Cannot find user") {
