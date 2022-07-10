@@ -68,6 +68,10 @@ export const Background = styled.div`
   }
 `;
 
+export const BackgroundDesk = styled.div`
+  width: 100%;
+`;
+
 export const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
