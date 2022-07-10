@@ -22,11 +22,12 @@ export const LoginModal = styled.div`
 
 	img {
 		width: 100%;
-		height: auto;
 		position: absolute;
 		top: -100px;
+		max-height: 670px;
 
 		@media (min-width: 800px) {
+			max-height: 800px;
 			width: 650px;
 			position: static;
 		}
