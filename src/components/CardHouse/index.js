@@ -1,43 +1,69 @@
 import { Container, ContainerEvaluation, Price } from "./styles";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Button from "../Button";
 import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { SlideImg } from "../SlideImg";
 
 function CardHouse({ product }) {
-  const formatValue = Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(product.price);
+	const history = useHistory();
+	const [currentHomeStars, setCurrentHomeStars] = useState([]);
 
-  const history = useHistory();
+	const formatValue = Intl.NumberFormat("pt-BR", {
+		style: "currency",
+		currency: "BRL",
+	}).format(product.price);
 
-  function handleClickDetails() {
-    history.push("/house/4");
-  }
+	function handleClickDetails(id) {
+		history.push(`/casa/${id}`);
+	}
 
-  return (
-    <Container>
-      <figure>
-        <img src={product.img} alt={product.title} />
-      </figure>
-      <div>
-        <h2>{product.title}</h2>
-        <p>{product.guests} hóspedes</p>
-      </div>
-      <Price>
-        {formatValue}
-        <span> / noite</span>
-      </Price>
-      <ContainerEvaluation>
-        <AiFillStar />
-        <AiFillStar />
-        <AiFillStar />
-        <AiFillStar />
-        <AiFillStar />
-      </ContainerEvaluation>
+	function homeStars() {
+		const starsArray = [];
+		for (let i = 1; i <= 5; i++) {
+			if (i <= product.reviews) {
+				starsArray.push(true);
+			} else {
+				starsArray.push(false);
+			}
+		}
+		setCurrentHomeStars([...starsArray]);
+	}
 
-      <Button onClick={handleClickDetails}>Ver detalhes</Button>
-    </Container>
-  );
+	useEffect(() => {
+		homeStars();
+		// console.log(currentHomeStars);
+	}, []);
+
+	return (
+		<Container>
+			<figure>
+				<img src={product.imgs[0]} alt={product.title} />
+				{/* <SlideImg house={product.imgs} /> */}
+			</figure>
+			<div>
+				<h2>{product.title}</h2>
+				<p>{product.capacity} hóspedes</p>
+			</div>
+			<Price>
+				{formatValue}
+				<span> / noite</span>
+			</Price>
+			<ContainerEvaluation>
+				{/* {product.reviews} */}
+				{currentHomeStars?.map((elem, index) => {
+					return elem ? (
+						<AiFillStar key={index} />
+					) : (
+						<AiOutlineStar key={index} />
+					);
+				})}
+			</ContainerEvaluation>
+
+			<Button onClick={() => handleClickDetails(product.id)}>
+				Ver detalhes
+			</Button>
+		</Container>
+	);
 }
 export default CardHouse;

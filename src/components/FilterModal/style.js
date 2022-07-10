@@ -8,6 +8,8 @@ export const ScreenBackground = styled.div`
 	align-items: center;
 	z-index: 10;
 	background: rgba(0, 0, 0, 0.3);
+	position: fixed;
+	inset: 0;
 `;
 
 export const Container = styled.div`
