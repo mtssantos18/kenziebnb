@@ -15,7 +15,7 @@ export const Conforts = ({ conforts, reviews }) => {
         grades.push("Fill");
       }
       if (grades.length < 5) {
-        for (let i = 0; i < 5 - grades.length; i++) {
+        for (let i = 0; i <= 5 - grades.length; i++) {
           grades.push("Round");
         }
       }

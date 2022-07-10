@@ -17,7 +17,7 @@ function Routes() {
       <Route path="/signup">
         <SignUp />
       </Route>
-      <Route path="/casa/:id">
+      <Route path="/house/:id">
         <House />
       </Route>
     </Switch>

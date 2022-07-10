@@ -4,6 +4,8 @@ export const Container = styled.div`
   height: fit-content;
   display: flex;
   flex-direction: column;
+  overflow-x: none;
+
   footer {
     margin-top: 1rem;
   }
