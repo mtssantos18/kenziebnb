@@ -10,7 +10,8 @@ function Input({
   placeholder,
   register,
   error,
-  defaultValue,
+
+  ...rest
 }) {
   const { showPassword, inputType, onClickShowPassword } =
     useContext(InputContext);
@@ -20,10 +21,10 @@ function Input({
       <label>{label}</label>
       <InputContainer error={error}>
         <input
+          {...rest}
           placeholder={placeholder}
           {...register(name)}
           type={type === "password" ? inputType : type}
-          defaultValue={defaultValue}
         />
         {name === "password" &&
           (showPassword ? (

@@ -78,7 +78,7 @@ function RentModal({ setShowModal, house }) {
     };
     setSuccessRent(true);
     bookHouse(rent);
-    setTimeout(() => history.push("/mypanel"), 2500);
+    setTimeout(() => history.push("/tenant"), 2500);
     console.log(rent);
   }
 
