@@ -28,6 +28,21 @@ export const HomesProvider = ({ children }) => {
     }
   }
 
+  async function editHome(id, data) {
+    try {
+      const token = JSON.parse(localStorage.getItem("@Kenziebnb:token"));
+      const response = await api.patch(`/homes/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch {
+      toast.error("Algo deu errado!");
+    } finally {
+      toast.success("Alterado com sucesso!");
+    }
+  }
+
   async function removeHome(id) {
     try {
       const token = JSON.parse(localStorage.getItem("@Kenziebnb:token"));
@@ -47,6 +62,7 @@ export const HomesProvider = ({ children }) => {
   return (
     <HomesContext.Provider
       value={{
+        editHome,
         homeList,
         setHomeList,
         addHome,

@@ -36,18 +36,26 @@ function House() {
     });
   }, []);
 
-  function handleClickBtnRent() {
-    const response = api
-      .get("/users", {
+  async function handleClickBtnRent() {
+    let verification;
+    await api
+      .get("/rents", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("@Kenziebnb:token")}`,
         },
       })
-      .catch((err) => err.response.data);
+      .then((res) => {
+        verification = false;
+      })
+      .catch((err) => {
+        console.log(err);
+        verification = true;
+      });
+    console.log(verification);
 
     if (!localStorage.getItem("@Kenziebnb:token")) {
       history.push("/login");
-    } else if (response) {
+    } else if (verification) {
       toast.error("Sessão expirada");
       localStorage.clear();
       setTimeout(() => history.push("/login"), 2500);
