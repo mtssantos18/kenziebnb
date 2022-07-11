@@ -49,7 +49,6 @@ export const MyPanel = () => {
   useEffect(() => {
     getUser(localStorage.getItem("@Kenziebnb:id"))
       .then((res) => {
-        // setUser(res);
         if (res.atribution === "host") {
           setHost(true);
         }
