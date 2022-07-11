@@ -12,20 +12,16 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Container } from "./styles";
-import { FilterContext } from "../../providers/Filter/Filter";
 import { CheckboxContainer } from "../../components/FilterModal/style";
-import House from "../House";
 import Button from "../../components/Button";
 
 export const MyPanel = () => {
-  const { getUser, user } = useContext(UserContext);
+  const { getUser } = useContext(UserContext);
   const { homeList } = useContext(HomesContext);
   const history = useHistory();
-  // const [user, setUser] = useState(false);
   const [home, setHome] = useState({});
   const [host, setHost] = useState(false);
   const [myHouse, setMyHouse] = useState(true);
-  const [loaded, setLoaded] = useState(false);
 
   const [confortsElements, setConfortsElements] = useState([
     { label: "Wi-Fi", value: "wifi", state: false },
@@ -64,13 +60,10 @@ export const MyPanel = () => {
           const conforts = [...confortsElements];
           const newConforts = conforts.map((elem) => {
             elem.state = newHome.conforts[elem.value];
-
             return elem;
           });
-
           setConfortsElements(newConforts);
         }
-
         return newHome;
       })
       .then((res) => {
@@ -78,13 +71,10 @@ export const MyPanel = () => {
       });
   }, [, homeList]);
 
-  // Add method
   yup.addMethod(yup.string, "stripEmptyString", function () {
     return this.transform((value) => (value === "" ? undefined : value));
   });
-  let [img] = home?.imgs;
 
-  console.log(img);
   const formSchema = yup.object().shape({
     title: yup
       .string()
@@ -100,7 +90,7 @@ export const MyPanel = () => {
       .string()
       .required("Campo Obrigatorio")
       .stripEmptyString()
-      .default(home?.address?.number),
+      .default(String(home?.address?.number)),
     city: yup
       .string()
       .required("Campo Obrigatorio")
@@ -115,37 +105,37 @@ export const MyPanel = () => {
       .string()
       .required("Campo Obrigatorio")
       .stripEmptyString()
-      .default(home?.capacity),
+      .default(String(home?.capacity)),
     price: yup
       .string()
       .required("Campo Obrigatorio")
       .stripEmptyString()
-      .default(home?.price),
+      .default(String(home?.price)),
     img: yup
       .string()
       .required("Campo Obrigatorio")
       .stripEmptyString()
-      .default(),
-    /* img1: yup
+      .default(home?.imgs && home?.imgs[0]),
+    img1: yup
       .string()
       .required("Campo Obrigatorio")
       .stripEmptyString()
-      .default(home?.imgs[1]),
+      .default(home?.imgs && home?.imgs[1]),
     img2: yup
       .string()
       .required("Campo Obrigatorio")
       .stripEmptyString()
-      .default(home?.imgs[2]),
+      .default(home?.imgs && home?.imgs[2]),
     img3: yup
       .string()
       .required("Campo Obrigatorio")
       .stripEmptyString()
-      .default(home?.imgs[3]),
+      .default(home?.imgs && home?.imgs[3]),
     img4: yup
       .string()
       .required("Campo Obrigatorio")
       .stripEmptyString()
-      .default(home?.imgs[4]), */
+      .default(home?.imgs && home?.imgs[4]),
   });
 
   const {
@@ -283,42 +273,42 @@ export const MyPanel = () => {
                         register={register}
                         error={errors.img0?.message}
                       />
-                      {/* <Input
-                      name="img1"
-                      label="Imagem 2"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[1]}
-                      register={register}
-                      error={errors.img1?.message}
-                    />
-                    <Input
-                      name="img2"
-                      label="Imagem 3"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[2]}
-                      register={register}
-                      error={errors.img2?.message}
-                    />
-                    <Input
-                      name="img3"
-                      label="Imagem 4"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[3]}
-                      register={register}
-                      error={errors.img3?.message}
-                    />
-                    <Input
-                      name="img4"
-                      label="Imagem 5"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[4]}
-                      register={register}
-                      error={errors.img4?.message}
-                    /> */}
+                      <Input
+                        name="img1"
+                        label="Imagem 2"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[1]}
+                        register={register}
+                        error={errors.img1?.message}
+                      />
+                      <Input
+                        name="img2"
+                        label="Imagem 3"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[2]}
+                        register={register}
+                        error={errors.img2?.message}
+                      />
+                      <Input
+                        name="img3"
+                        label="Imagem 4"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[3]}
+                        register={register}
+                        error={errors.img3?.message}
+                      />
+                      <Input
+                        name="img4"
+                        label="Imagem 5"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[4]}
+                        register={register}
+                        error={errors.img4?.message}
+                      />
                     </div>
                   }
                 </div>
