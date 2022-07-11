@@ -10,6 +10,7 @@ export const Container = styled.div`
     margin: 0 auto;
     display: flex;
     gap: 10px;
+
     .btnHome,
     .btnMyHouse {
       background: #d9d9d9;

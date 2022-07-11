@@ -17,67 +17,60 @@
  * Fazer um function chamada CardRent que retornará o componente CardRent.
  *
  */
-import { Container, Title } from "./style";
+import {
+  BookingInfo,
+  Container,
+  HostInfo,
+  ImgDiv,
+  PeriodAndPrice,
+  Title,
+  TotalPrice,
+} from "./style";
 import image from "../../assets/image-reservation.svg";
 
 function CardRent(props) {
   return (
     <>
-      <Title>
-        <h2>Minhas Reservas</h2>
-      </Title>
+      <Title>Minhas Reservas</Title>
       <Container>
-        <div className="card-rent__image">
-          <img src={image} alt="Imagem do card" />
-        </div>
-        <div className="card-rent__container">
-          <div className="card-rent__text">
-            <p>Hospedes:</p>
-            <span>4</span>
-          </div>
-          <div className="card-rent__span">
-            <span>Pendente</span>
-          </div>
-        </div>
-        <div className="card-rent__text2">
-          <h2>Período</h2>
-          <div>
-            <p>Entrada:</p>
-            <span>01/01/2019</span>
-          </div>
-          <div>
-            <p>Saída:</p>
-            <span>31/01/2019</span>
-          </div>
-        </div>
-        <div className="card-rent__container2">
-          <p>Total dias:</p>
-          <span>5</span>
-        </div>
-        <div className="card-rent__container2">
-          <p>Total da reserva:</p>
-          <span>R$ 3.935,00</span>
-        </div>
-        <div className="card-rent__title">
-          <h2>Dados Locador</h2>
-        </div>
-        <div className="card-rent__text3">
-          <div>
-            <p>Nome:</p>
-            <span>Gilsinho das Casas</span>
-          </div>
-          <div>
-            <p>Telefone:</p>
-            <span>(97) 97741-8574</span>
-          </div>
-          <div>
-            <p>Email:</p>
-            <span>gilsinho_locador@gmail.com</span>
-          </div>
-        </div>
-        <div className="card-rent__button">
+        <ImgDiv>
+          <img src={image} alt="imagem" />
+        </ImgDiv>
+        <BookingInfo>
+          <PeriodAndPrice>
+            <p>
+              Hóspedes: <span>4</span>
+            </p>
+            <h3>Período</h3>
+            <p>
+              Entrada: <span>05/07/2022</span>
+            </p>
+            <p>
+              Saída: <span>10/07/2022</span>
+            </p>
+            <TotalPrice>
+              <p>Total de dias:</p>
+              <p>5</p>
+            </TotalPrice>
+            <TotalPrice>
+              <p>Total da reserva:</p>
+              <p>R$ 4.000,00</p>
+            </TotalPrice>
+          </PeriodAndPrice>
+          <HostInfo>
+            <h3>Dados Locador</h3>
+            <p>
+              Nome: <span>Gilsinho</span>
+            </p>
+            <p>
+              Telefone: <span>129991930</span>
+            </p>
+            <p>
+              Email: <span>gilsinhobala@mail.com</span>
+            </p>
+          </HostInfo>
           <button>Cancelar Reserva</button>
-        </div>
+        </BookingInfo>
       </Container>
     </>
   );
