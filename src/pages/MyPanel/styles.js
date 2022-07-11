@@ -57,6 +57,9 @@ export const Container = styled.div`
       form {
         width: 95%;
         margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
       }
 
       .address {
@@ -65,20 +68,27 @@ export const Container = styled.div`
         }
       }
       .capacityPrice {
-        display: flex;
-        width: 100%;
+        h2 {
+          padding: 10px 0;
+        }
+        div {
+          display: flex;
+          width: 100%;
+        }
       }
       .description {
         width: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         flex-direction: column;
+        padding: 10px 0;
         h2 {
           align-self: flex-start;
         }
         textarea {
-          width: 90%;
-          margin: 0 auto;
+          width: 95%;
+          margin-left: 10px;
+          margin-top: 10px;
           border-radius: 10px;
           background-color: var(--grey-2);
           padding: 10px;

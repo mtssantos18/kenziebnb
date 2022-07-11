@@ -15,6 +15,7 @@ import { Container } from "./styles";
 import { FilterContext } from "../../providers/Filter/Filter";
 import { CheckboxContainer } from "../../components/FilterModal/style";
 import House from "../House";
+import Button from "../../components/Button";
 
 export const MyPanel = () => {
   const { getUser, user } = useContext(UserContext);
@@ -86,8 +87,9 @@ export const MyPanel = () => {
   });
 
   const formSchema = yup.object().shape({
-    email: yup.string().required("Email obrigatório").email("Email inválido"),
-    password: yup.string().required("Senha obrigatória"),
+    title: yup.string().required("Campo Obrigatorio"),
+    street: yup.string().required("Campo Obrigatorio"),
+    number: yup.string().required("Campo Obrigatorio"),
   });
 
   const {
@@ -184,24 +186,27 @@ export const MyPanel = () => {
                     ></textarea>
                   </div>
                   <div className="capacityPrice">
-                    <Input
-                      label="Hóspedes"
-                      name="capacity"
-                      type="text"
-                      placeholder="Capacidade"
-                      defaultValue={home?.capacity}
-                      register={register}
-                      error={errors.capacity?.message}
-                    />
-                    <Input
-                      label="Valor da locação"
-                      name="price"
-                      type="text"
-                      placeholder="Valor..."
-                      defaultValue={home?.price}
-                      register={register}
-                      error={errors.price?.message}
-                    />
+                    <h2>Valor e quantidade de hóspedes</h2>
+                    <div>
+                      <Input
+                        label="Hóspedes"
+                        name="capacity"
+                        type="text"
+                        placeholder="Capacidade"
+                        defaultValue={home?.capacity}
+                        register={register}
+                        error={errors.capacity?.message}
+                      />
+                      <Input
+                        label="Valor da locação"
+                        name="price"
+                        type="text"
+                        placeholder="Valor..."
+                        defaultValue={home?.price}
+                        register={register}
+                        error={errors.price?.message}
+                      />
+                    </div>
                   </div>
                   <div className="containerImgs">
                     <h2>Imagens</h2>
@@ -251,6 +256,13 @@ export const MyPanel = () => {
                       error={errors.img4?.message}
                     />
                   </div>
+                </div>
+                <div className="btnEditHome">
+                  {home ? (
+                    <Button type="submit">Salvar Alterações</Button>
+                  ) : (
+                    <Button>Nova hospedagem</Button>
+                  )}
                 </div>
               </form>
             </div>
