@@ -76,20 +76,76 @@ export const MyPanel = () => {
       .then((res) => {
         setHome(res);
       });
-    console.log(user);
   }, [, homeList]);
 
-  const newConforts = {};
-  confortsElements.map((elem) => {
-    const value = elem.value;
-
-    return (newConforts[value] = elem.state);
+  // Add method
+  yup.addMethod(yup.string, "stripEmptyString", function () {
+    return this.transform((value) => (value === "" ? undefined : value));
   });
+  let [img] = home?.imgs;
 
+  console.log(img);
   const formSchema = yup.object().shape({
-    title: yup.string().required("Campo Obrigatorio"),
-    street: yup.string().required("Campo Obrigatorio"),
-    number: yup.string().required("Campo Obrigatorio"),
+    title: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.title),
+    street: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.address?.street),
+    number: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.address?.number),
+    city: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.address?.city),
+    description: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.description),
+    capacity: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.capacity),
+    price: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.price),
+    img: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(),
+    /* img1: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs[1]),
+    img2: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs[2]),
+    img3: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs[3]),
+    img4: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs[4]), */
   });
 
   const {
@@ -99,6 +155,13 @@ export const MyPanel = () => {
   } = useForm({ resolver: yupResolver(formSchema) });
 
   function onSubmitFunction(data) {
+    const newConforts = {};
+    confortsElements.map((elem) => {
+      const value = elem.value;
+
+      return (newConforts[value] = elem.state);
+    });
+    data.conforts = newConforts;
     console.log(data);
   }
 
@@ -208,18 +271,19 @@ export const MyPanel = () => {
                       />
                     </div>
                   </div>
-                  <div className="containerImgs">
-                    <h2>Imagens</h2>
-                    <Input
-                      name="img0"
-                      label="Imagem 1"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[0]}
-                      register={register}
-                      error={errors.img0?.message}
-                    />
-                    <Input
+                  {
+                    <div className="containerImgs">
+                      <h2>Imagens</h2>
+                      <Input
+                        name="img"
+                        label="Imagem 1"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[0]}
+                        register={register}
+                        error={errors.img0?.message}
+                      />
+                      {/* <Input
                       name="img1"
                       label="Imagem 2"
                       type="text"
@@ -254,8 +318,9 @@ export const MyPanel = () => {
                       defaultValue={home?.imgs[4]}
                       register={register}
                       error={errors.img4?.message}
-                    />
-                  </div>
+                    /> */}
+                    </div>
+                  }
                 </div>
                 <div className="btnEditHome">
                   {home ? (
