@@ -3,11 +3,14 @@ import { useHistory } from "react-router-dom";
 import { MdPerson } from "react-icons/md";
 import { Container } from "./styles";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { UserContext } from "../../providers/User/User";
 
 function Header() {
   const [logged, setLogged] = useState(false);
   const [modalProfile, setModalProfile] = useState(false);
   const history = useHistory();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const token = localStorage.getItem("@Kenziebnb:token");
@@ -33,7 +36,11 @@ function Header() {
     setModalProfile(!modalProfile);
   }
   function handleMyProfile() {
-    history.push("/mypanel");
+    if (user.atribution === "host") {
+      history.push("/host");
+    } else {
+      history.push("/tenant");
+    }
   }
   return (
     <Container>

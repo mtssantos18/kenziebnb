@@ -61,7 +61,7 @@ export const UserProvider = ({ children }) => {
 
       setTimeout(() => {
         if (response.data.user.atribution === "host") {
-          history.push("/mypanel");
+          history.push("/host");
         } else {
           history.push("/");
         }
