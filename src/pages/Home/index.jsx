@@ -15,7 +15,6 @@ import { HiOutlineEmojiSad } from "react-icons/hi";
 import { useContext, useState } from "react";
 
 import FilterModal from "../../components/FilterModal";
-import Footer from "../../components/Footer";
 
 import { HomesContext } from "../../providers/Homes/Homes";
 import { FilterContext } from "../../providers/Filter/Filter";

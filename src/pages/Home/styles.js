@@ -66,7 +66,7 @@ export const ContentContainer = styled.div`
 
 export const List = styled.ul`
   display: flex;
-  height: 480px;
+  height: 490px;
   flex-direction: row;
   overflow: scroll;
   scrollbar-width: none;
@@ -117,5 +117,17 @@ export const FilterButton = styled.button`
 
   &:hover {
     background: var(--grey-4);
+  }
+`;
+
+export const ContainerOut = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  footer {
+    position: absolute;
+    bottom: 0px;
   }
 `;
