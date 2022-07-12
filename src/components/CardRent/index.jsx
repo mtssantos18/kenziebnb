@@ -28,6 +28,7 @@ function CardRent({ myRent, user }) {
     }
 
     getHomeAndOwner(myRent.houseId);
+    console.log(myRent);
   }, [myRent.houseId]);
 
   function getTotalDays(start, end) {

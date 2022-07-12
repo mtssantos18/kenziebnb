@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 
 import { useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { HiOutlineEmojiSad } from "react-icons/hi";
 
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -16,9 +17,12 @@ import Button from "../../components/Button";
 import { HomesContext } from "../../providers/Homes/Homes";
 import { UserContext } from "../../providers/User/User";
 
-import { Container } from "./styles";
+import { Container, Content, Title } from "./styles";
 import { CheckboxContainer } from "../../components/FilterModal/style";
 import ModalDeleteHouse from "../../components/ModalDeleteHouse";
+import { Message } from "../TenantPanel/style";
+import CardRent from "../../components/CardRent";
+import { RentsContext } from "../../providers/Rents/Rents";
 
 export const MyPanel = () => {
   const { getUser, user } = useContext(UserContext);
@@ -28,6 +32,7 @@ export const MyPanel = () => {
   const [home, setHome] = useState({});
   const [host, setHost] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
+  const [myHouse, setMyHouse] = useState(true);
 
   const [confortsElements, setConfortsElements] = useState([
     { label: "Wi-Fi", value: "wifi", state: false },
@@ -36,6 +41,11 @@ export const MyPanel = () => {
     { label: "Ar Condicionado", value: "airConditioning", state: false },
     { label: "Piscina", value: "pool", state: false },
   ]);
+  const { rents } = useContext(RentsContext);
+  console.log(rents);
+
+  const myRents = rents?.filter((elem) => elem.houseId === home.id);
+  console.log(myRents && myRents);
 
   function confortButtonEvent(buttonIndex) {
     setConfortsElements((currentConfortElem) => {
@@ -209,9 +219,16 @@ export const MyPanel = () => {
           <button className="btnHome" onClick={() => history.push("/")}>
             <AiOutlineArrowLeft /> Home
           </button>
-          {host && <button className="btnMyHouse">Minha Casa</button>}
+          <button className="btnMyHouse" onClick={() => setMyHouse(false)}>
+            Minhas reservas
+          </button>
+          {host && (
+            <button className="btnMyHouse" onClick={() => setMyHouse(true)}>
+              Minha Casa
+            </button>
+          )}
         </div>
-        {host && (
+        {host && myHouse && (
           <div className="houseForm">
             <h3>Minha Casa</h3>
             <div className="containerForm">
@@ -378,8 +395,24 @@ export const MyPanel = () => {
           </div>
         )}
       </div>
-
-      <Footer />
+      {!myHouse && (
+        <>
+          <Title>Minhas Reservas</Title>
+          <Content>
+            {myRents.length !== 0 ? (
+              myRents.map((elem, index) => (
+                <CardRent key={index} myRent={elem} user={user} />
+              ))
+            ) : (
+              <Message>
+                <HiOutlineEmojiSad size={40} />
+                <h2>Você ainda não tem nenhuma reserva.</h2>
+              </Message>
+            )}
+          </Content>
+        </>
+      )}
+      {myHouse && <Footer />}
     </Container>
   );
 };
