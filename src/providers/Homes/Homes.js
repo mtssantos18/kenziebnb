@@ -28,6 +28,7 @@ export const HomesProvider = ({ children }) => {
       });
 
       toast.success("Casa adicionada com sucesso!");
+      return response.data;
     } catch (error) {
       console.log(error);
       toast.error("Informação insuficente para adicionar nova casa");
@@ -51,14 +52,14 @@ export const HomesProvider = ({ children }) => {
 
   async function removeHome(id) {
     try {
-      const token = JSON.parse(localStorage.getItem("@Kenziebnb:token"));
+      const token = localStorage.getItem("@Kenziebnb:token");
 
       const response = api.delete(`/homes/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      getHomeList();
       toast.success("Casa removida com sucesso!");
     } catch {
       toast.error("Algo deu errado!");

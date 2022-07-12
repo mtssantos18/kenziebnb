@@ -4,29 +4,30 @@ import { useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import { useHistory } from "react-router-dom";
-
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import Input from "../../components/Input";
-
-import { HomesContext } from "../../providers/Homes/Homes";
-import { UserContext } from "../../providers/User/User";
-
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Container } from "./styles";
-import { CheckboxContainer } from "../../components/FilterModal/style";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import Input from "../../components/Input";
 import Button from "../../components/Button";
+
+import { HomesContext } from "../../providers/Homes/Homes";
+import { UserContext } from "../../providers/User/User";
+
+import { Container, ModalDelete } from "./styles";
+import { MdClose } from "react-icons/md";
+import { CheckboxContainer } from "../../components/FilterModal/style";
 
 export const MyPanel = () => {
   const { getUser, user } = useContext(UserContext);
-  const { homeList, addHome, editHome, getHomeList } = useContext(HomesContext);
+  const { homeList, addHome, editHome, getHomeList, setHomeList, removeHome } =
+    useContext(HomesContext);
   const history = useHistory();
   const [home, setHome] = useState({});
   const [host, setHost] = useState(false);
-  const [myHouse, setMyHouse] = useState(true);
+  const [showModalDelete, setShowModalDelete] = useState(false);
 
   const [confortsElements, setConfortsElements] = useState([
     { label: "Wi-Fi", value: "wifi", state: false },
@@ -148,7 +149,7 @@ export const MyPanel = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(formSchema) });
 
-  function onSubmitFunction(data) {
+  async function onSubmitFunction(data) {
     const {
       city,
       description,
@@ -186,18 +187,46 @@ export const MyPanel = () => {
     };
     console.log(newObj);
     if (home) {
-      editHome(home?.id, newObj);
-      getHomeList();
-      setTimeout(() => history.push(`/house/${homeList?.length - 2}`), 2500);
+      await editHome(home?.id, newObj);
+      await getHomeList();
+      setTimeout(() => history.push(`/house/${home?.id}`), 2500);
     } else {
-      addHome(newObj);
-      getHomeList();
-      setTimeout(() => history.push(`/house/${homeList?.length - 1}`), 3000);
+      const newHome = await addHome(newObj);
+      await getHomeList();
+      setTimeout(() => history.push(`/house/${newHome.id}`), 3000);
     }
   }
 
   return (
     <Container>
+      {showModalDelete && (
+        <ModalDelete>
+          <div className="containerModal">
+            <header>
+              <h3>Deletar casa</h3>
+              <MdClose onClick={() => setShowModalDelete(false)} />
+            </header>
+            <p>Deseja realmente apagar esse imóvel?</p>
+            <div className="btnContainer">
+              <button
+                type="button"
+                className="btnDelete"
+                onClick={() => {
+                  removeHome(home?.id);
+                  getHomeList();
+                  setShowModalDelete(false);
+                  // setTimeout(() => history.push("/"), 2500);
+                }}
+              >
+                Apagar
+              </button>
+              <Button onClick={() => setShowModalDelete(false)}>
+                Cancelar
+              </Button>
+            </div>
+          </div>
+        </ModalDelete>
+      )}
       <Header />
 
       <div className="containerMyHouse">
@@ -207,7 +236,7 @@ export const MyPanel = () => {
           </button>
           {host && <button className="btnMyHouse">Minha Casa</button>}
         </div>
-        {host && myHouse && (
+        {host && (
           <div className="houseForm">
             <h3>Minha Casa</h3>
             <div className="containerForm">
@@ -359,9 +388,15 @@ export const MyPanel = () => {
                   ) : (
                     <Button type="submit">Nova hospedagem</Button>
                   )}
-                  <button type="button" onClick={() => console.log("sssssss")}>
-                    Deletar
-                  </button>
+                  {home && (
+                    <button
+                      type="button"
+                      className="btnDelete"
+                      onClick={() => setShowModalDelete(true)}
+                    >
+                      Deletar
+                    </button>
+                  )}
                 </div>
               </form>
             </div>
