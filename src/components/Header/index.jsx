@@ -36,7 +36,7 @@ function Header() {
     setModalProfile(!modalProfile);
   }
   function handleMyProfile() {
-    if (user.atribution === "host") {
+    if (user?.atribution === "host") {
       history.push("/host");
     } else {
       history.push("/tenant");

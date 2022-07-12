@@ -19,13 +19,11 @@ function Map({ address }) {
       )
         .then((res) => res.json())
         .then((res) => {
-          // console.log(res.results[0].geometry.location);
           setCenter(res.results[0].geometry.location);
         })
         .finally(() => {
           setMark(true);
         });
-      // .catch((err) => console.log(err));
     }
   }, [address]);
 
@@ -35,17 +33,12 @@ function Map({ address }) {
     borderRadius: "10px",
   };
 
-  const onLoad = (marker) => {
-    // console.log("marker: ", marker);
-  };
   return (
     <Container>
       <h3>Localização</h3>
       {isLoaded && (
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={16}>
-          {mark && (
-            <Marker onLoad={onLoad} position={center} icon={iconHouse} />
-          )}
+          {mark && <Marker position={center} icon={iconHouse} />}
         </GoogleMap>
       )}
     </Container>
