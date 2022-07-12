@@ -119,15 +119,3 @@ export const FilterButton = styled.button`
     background: var(--grey-4);
   }
 `;
-
-export const ContainerOut = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  position: relative;
-
-  footer {
-    position: absolute;
-    bottom: 0px;
-  }
-`;
