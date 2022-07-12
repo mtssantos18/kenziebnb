@@ -1,5 +1,6 @@
 import Header from "./../../components/Header";
-import CardHouse from "../../components/CardHouse/index.js";
+
+import CardHouse from "../../components/CardHouse/index";
 
 import {
   List,
