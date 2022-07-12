@@ -26,7 +26,7 @@ function House() {
 
   useEffect(() => {
     setHouse(homeList.find((e) => e.id === +selected.id));
-  }, [homeList]);
+  }, [, homeList]);
 
   useEffect(() => {
     window.addEventListener("resize", (e) => {
