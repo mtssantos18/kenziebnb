@@ -7,12 +7,15 @@ import {
   TotalPrice,
 } from "./style";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import api from "../../services/api";
+import { RentsContext } from "../../providers/Rents/Rents";
 
 function CardRent({ myRent }) {
   const [owner, setOwner] = useState({});
+
+  const { deleteBookHouse } = useContext(RentsContext);
 
   useEffect(() => {
     async function getHomeAndOwner(houseId) {
@@ -115,7 +118,9 @@ function CardRent({ myRent }) {
               Email: <span>{owner?.user?.email}</span>
             </p>
           </HostInfo>
-          <button onClick={() => console.log(owner)}>Cancelar Reserva</button>
+          <button onClick={() => deleteBookHouse(myRent.id)}>
+            Cancelar Reserva
+          </button>
         </BookingInfo>
       </Container>
     </>

@@ -21,7 +21,6 @@ export const ContainerFilterAndSelect = styled.div`
 
   gap: 1rem;
   div {
-    margin-left: 1.1rem;
     padding: 2rem;
     width: 17rem;
     display: flex;
@@ -39,8 +38,15 @@ export const ContainerFilterAndSelect = styled.div`
       cursor: pointer;
     }
   }
-  @media (min-width: 650px) {
+
+  @media (min-width: 600px) {
     flex-direction: row;
+
+    padding-left: 3.2rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-left: 1rem;
   }
 `;
 
@@ -102,7 +108,6 @@ export const FilterButton = styled.button`
   align-items: center;
   justify-content: center;
   width: 100px;
-  margin-left: 20px;
   gap: 10px;
   background: var(--grey-3);
   border-radius: 15px;
