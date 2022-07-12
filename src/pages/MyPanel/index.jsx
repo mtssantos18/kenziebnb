@@ -16,9 +16,9 @@ import Button from "../../components/Button";
 import { HomesContext } from "../../providers/Homes/Homes";
 import { UserContext } from "../../providers/User/User";
 
-import { Container, ModalDelete } from "./styles";
-import { MdClose } from "react-icons/md";
+import { Container } from "./styles";
 import { CheckboxContainer } from "../../components/FilterModal/style";
+import ModalDeleteHouse from "../../components/ModalDeleteHouse";
 
 export const MyPanel = () => {
   const { getUser, user } = useContext(UserContext);
@@ -200,32 +200,7 @@ export const MyPanel = () => {
   return (
     <Container>
       {showModalDelete && (
-        <ModalDelete>
-          <div className="containerModal">
-            <header>
-              <h3>Deletar casa</h3>
-              <MdClose onClick={() => setShowModalDelete(false)} />
-            </header>
-            <p>Deseja realmente apagar esse imóvel?</p>
-            <div className="btnContainer">
-              <button
-                type="button"
-                className="btnDelete"
-                onClick={() => {
-                  removeHome(home?.id);
-                  getHomeList();
-                  setShowModalDelete(false);
-                  // setTimeout(() => history.push("/"), 2500);
-                }}
-              >
-                Apagar
-              </button>
-              <Button onClick={() => setShowModalDelete(false)}>
-                Cancelar
-              </Button>
-            </div>
-          </div>
-        </ModalDelete>
+        <ModalDeleteHouse home={home} setShowModalDelete={setShowModalDelete} />
       )}
       <Header />
 
