@@ -51,13 +51,12 @@ export const Content = styled.div`
   flex-direction: row;
   gap: 1rem;
 
-  height: 550px;
-
   overflow-x: scroll;
   overflow-y: hidden;
   scrollbar-width: none;
 
   padding: 0 1.3rem;
+  margin-bottom: 1rem;
 
   @media (min-width: 800px) {
     overflow-x: hidden;

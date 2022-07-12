@@ -5,12 +5,13 @@ export const Container = styled.div`
 
   min-width: 280px;
   max-width: 300px;
+  height: 515px;
 
   border-radius: 10px;
 
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
 
   padding: 1rem;
 `;
