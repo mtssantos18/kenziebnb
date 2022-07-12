@@ -15,6 +15,35 @@ export const Container = styled.div`
   }
 `;
 
+export const ContainerFilterAndSelect = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+  div {
+    margin-left: 1.1rem;
+    padding: 2rem;
+    width: 17rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    gap: 10px;
+    background: var(--grey-3);
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-size: 18px;
+    select {
+      background: var(--grey-3);
+      color: white;
+      cursor: pointer;
+    }
+  }
+  @media (min-width: 650px) {
+    flex-direction: row;
+  }
+`;
+
 export const ContentContainer = styled.div`
   width: 100%;
   max-width: 950px;
@@ -49,7 +78,7 @@ export const List = styled.ul`
     gap: 10px;
     color: var(--grey-4);
 
-    h2 {
+    h1 {
       text-align: center;
     }
 
