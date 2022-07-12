@@ -66,3 +66,28 @@ export const Content = styled.div`
     flex-wrap: wrap;
   }
 `;
+
+export const Message = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  width: 100%;
+
+  text-align: center;
+
+  h2 {
+    font-size: 20px;
+  }
+
+  a {
+    text-decoration: underline;
+    text-underline-offset: 1px;
+
+    :hover {
+      color: var(--blue-3);
+    }
+  }
+`;

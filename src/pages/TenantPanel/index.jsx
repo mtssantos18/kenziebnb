@@ -1,12 +1,18 @@
 import React, { useContext } from "react";
+
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { useHistory } from "react-router-dom";
+import { HiOutlineEmojiSad } from "react-icons/hi";
+
+import { Link, useHistory } from "react-router-dom";
+
 import CardRent from "../../components/CardRent";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+
 import { RentsContext } from "../../providers/Rents/Rents";
 import { UserContext } from "../../providers/User/User";
-import { Container, Content, Title } from "./style";
+
+import { Container, Content, Message, Title } from "./style";
 
 function TenantPanel() {
   const history = useHistory();
@@ -26,9 +32,19 @@ function TenantPanel() {
       </button>
       <Title>Minhas Reservas</Title>
       <Content>
-        {myRents.map((elem, index) => (
-          <CardRent key={elem.id} myRents={myRents[index]} />
-        ))}
+        {myRents.length !== 0 ? (
+          myRents.map((elem, index) => (
+            <CardRent key={elem.id} myRents={myRents[index]} />
+          ))
+        ) : (
+          <Message>
+            <HiOutlineEmojiSad size={40} />
+            <h2>Você ainda não tem nenhuma reserva.</h2>
+            <p>
+              Que tal fazer uma reserva? <Link to="/">clique aqui!</Link>
+            </p>
+          </Message>
+        )}
       </Content>
       <Footer />
     </Container>
