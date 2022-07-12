@@ -9,7 +9,6 @@ export const RentsContext = createContext([]);
 export const RentsProvider = ({ children }) => {
   const { user } = useContext(UserContext);
   const [rents, setRents] = useState([]);
-  const history = useHistory();
 
   useEffect(() => {
     const token = localStorage.getItem("@Kenziebnb:token");
@@ -21,9 +20,7 @@ export const RentsProvider = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => setRents(res.data))
-
-        .catch((err) => console.log(err));
+        .then((res) => setRents(res.data));
     }
   }, [user]);
 
@@ -36,9 +33,10 @@ export const RentsProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-    setRents([...rents, rent]);
+      .then((res) => {
+        setRents([...rents, res.data]);
+      })
+      .catch((err) => toast.error("Tente novamente mais tarde"));
   }
 
   function deleteBookHouse(bookId) {
