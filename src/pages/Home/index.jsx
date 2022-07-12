@@ -7,6 +7,10 @@ import {
   FilterButton,
   ContentContainer,
   FooterContainer,
+<<<<<<< HEAD
+  ContainerFilterAndSelect,
+=======
+>>>>>>> 7ff841b5efb7204daecaa02e869ef68e3abb0dac
 } from "./styles.js";
 
 import mockup from "./../../images/mockup.png";
@@ -31,6 +35,105 @@ function Home() {
     setShowFilterModal(true);
   }
 
+<<<<<<< HEAD
+  const [selectList, setSelectList] = useState("");
+  console.log(selectList);
+
+  return (
+    <>
+      <Header />
+
+      <Container>
+        {showFilterModal && <FilterModal />}
+
+        <ContentContainer>
+          <ContainerFilterAndSelect>
+            <FilterButton onClick={onCLickFilter}>
+              <IoFilterOutline size={22} />
+              <p>Filtros</p>
+            </FilterButton>
+            <div>
+              Ordenar por:
+              <select onChange={(e) => setSelectList(e.target.value)}>
+                <option value="menor">Menor preço</option>
+                <option value="maior">Maior preço</option>
+              </select>
+            </div>
+          </ContainerFilterAndSelect>
+          <List>
+            {selectList === "maior" ? (
+              filterList.length === 0 ? (
+                <div className="no_filter_message">
+                  <HiOutlineEmojiSad size={40} />
+                  <h1>Não há casas com o filtro aplicado.</h1>
+                </div>
+              ) : filterList ? (
+                filterList
+                  .sort(function (a, b) {
+                    if (a.price < b.price) {
+                      return 1;
+                    }
+                    if (a.price > b.price) {
+                      return -1;
+                    }
+
+                    return 0;
+                  })
+                  .map((product, index) => (
+                    <CardHouse key={index} product={product} />
+                  ))
+              ) : (
+                homeList
+                  .sort(function (a, b) {
+                    if (a.price < b.price) {
+                      return 1;
+                    }
+                    if (a.price > b.price) {
+                      return -1;
+                    }
+
+                    return 0;
+                  })
+                  .map((product, index) => (
+                    <CardHouse key={index} product={product} />
+                  ))
+              )
+            ) : filterList.length === 0 ? (
+              <div className="no_filter_message">
+                <HiOutlineEmojiSad size={40} />
+                <h1>Não há casas com o filtro aplicado.</h1>
+              </div>
+            ) : filterList ? (
+              filterList
+                .sort(function (a, b) {
+                  if (a.price > b.price) {
+                    return 1;
+                  }
+                  if (a.price < b.price) {
+                    return -1;
+                  }
+
+                  return 0;
+                })
+                .map((product, index) => (
+                  <CardHouse key={index} product={product} />
+                ))
+            ) : (
+              homeList
+                .sort(function (a, b) {
+                  if (a.price > b.price) {
+                    return 1;
+                  }
+                  if (a.price < b.price) {
+                    return -1;
+                  }
+
+                  return 0;
+                })
+                .map((product, index) => (
+                  <CardHouse key={index} product={product} />
+                ))
+=======
   return (
     <>
       <Header />
@@ -57,6 +160,7 @@ function Home() {
               homeList.map((product, index) => (
                 <CardHouse key={index} product={product} />
               ))
+>>>>>>> 7ff841b5efb7204daecaa02e869ef68e3abb0dac
             )}
           </List>
         </ContentContainer>
