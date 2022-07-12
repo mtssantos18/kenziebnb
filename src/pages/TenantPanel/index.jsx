@@ -20,7 +20,7 @@ function TenantPanel() {
   const { user } = useContext(UserContext);
   const { rents } = useContext(RentsContext);
 
-  const myRents = rents.filter((elem) => elem.tenantId === user?.id);
+  const myRents = rents?.filter((elem) => elem.tenantId === user?.id);
 
   return (
     <Container>

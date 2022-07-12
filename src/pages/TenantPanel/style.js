@@ -9,8 +9,10 @@ export const Container = styled.div`
   footer {
     margin-top: 1rem;
 
-    position: absolute;
-    bottom: 0px;
+    @media (min-width: 768px) {
+      position: absolute;
+      bottom: 0px;
+    }
   }
 
   .btnHome {
@@ -56,6 +58,9 @@ export const Content = styled.div`
   scrollbar-width: none;
 
   padding: 0 1.3rem;
+  margin-bottom: 1rem;
+
+  min-height: 70%;
 
   @media (min-width: 800px) {
     overflow-x: hidden;

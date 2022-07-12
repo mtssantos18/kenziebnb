@@ -37,7 +37,6 @@ function RentModal({ setShowModal, house }) {
   const { getUser } = useContext(UserContext);
 
   function checkDates(books) {
-    console.log(books);
     let totalDisabled = [new Date()];
     for (let j = 0; j < books.length; j++) {
       let disabled = [new Date(books[j].startDate)];
@@ -79,7 +78,6 @@ function RentModal({ setShowModal, house }) {
     setSuccessRent(true);
     bookHouse(rent);
     setTimeout(() => history.push("/tenant"), 2500);
-    console.log(rent);
   }
 
   useEffect(() => {
