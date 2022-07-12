@@ -31,7 +31,11 @@ export const UserProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    getUser(localStorage.getItem("@Kenziebnb:id"));
+    const token = localStorage.getItem("@Kenziebnb:token");
+
+    if (token) {
+      getUser(localStorage.getItem("@Kenziebnb:id"));
+    }
   }, []);
 
   async function signUpUser(formData) {

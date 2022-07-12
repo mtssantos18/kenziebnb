@@ -6,19 +6,18 @@ import {
   Container,
   FilterButton,
   ContentContainer,
-  FooterContainer,
+  ContainerFilterAndSelect,
 } from "./styles.js";
 
-import mockup from "./../../images/mockup.png";
-
-import Footer from "../../components/Footer";
-
-import { useContext, useEffect, useState } from "react";
-import { HomesContext } from "../../providers/Homes/Homes";
-import Button from "../../components/Button";
-import FilterModal from "../../components/FilterModal";
 import { IoFilterOutline } from "react-icons/io5";
 import { HiOutlineEmojiSad } from "react-icons/hi";
+
+import { useContext, useState } from "react";
+
+import FilterModal from "../../components/FilterModal";
+import Footer from "../../components/Footer";
+
+import { HomesContext } from "../../providers/Homes/Homes";
 import { FilterContext } from "../../providers/Filter/Filter";
 
 function Home() {
@@ -31,6 +30,8 @@ function Home() {
     setShowFilterModal(true);
   }
 
+  const [selectList, setSelectList] = useState("");
+
   return (
     <>
       <Header />
@@ -39,24 +40,92 @@ function Home() {
         {showFilterModal && <FilterModal />}
 
         <ContentContainer>
-          <FilterButton onClick={onCLickFilter}>
-            <IoFilterOutline size={22} />
-            <p>Filtros</p>
-          </FilterButton>
+          <ContainerFilterAndSelect>
+            <FilterButton onClick={onCLickFilter}>
+              <IoFilterOutline size={22} />
+              <p>Filtros</p>
+            </FilterButton>
+            <div>
+              Ordenar por:
+              <select onChange={(e) => setSelectList(e.target.value)}>
+                <option value="menor">Menor preço</option>
+                <option value="maior">Maior preço</option>
+              </select>
+            </div>
+          </ContainerFilterAndSelect>
           <List>
-            {filterList.length === 0 ? (
+            {selectList === "maior" ? (
+              filterList.length === 0 ? (
+                <div className="no_filter_message">
+                  <HiOutlineEmojiSad size={40} />
+                  <h1>Não há casas com o filtro aplicado.</h1>
+                </div>
+              ) : filterList ? (
+                filterList
+                  .sort(function (a, b) {
+                    if (a.price < b.price) {
+                      return 1;
+                    }
+                    if (a.price > b.price) {
+                      return -1;
+                    }
+
+                    return 0;
+                  })
+                  .map((product, index) => (
+                    <CardHouse key={index} product={product} />
+                  ))
+              ) : (
+                homeList
+                  .sort(function (a, b) {
+                    if (a.price < b.price) {
+                      return 1;
+                    }
+                    if (a.price > b.price) {
+                      return -1;
+                    }
+
+                    return 0;
+                  })
+                  .map((product, index) => (
+                    <CardHouse key={index} product={product} />
+                  ))
+              )
+            ) : filterList.length === 0 ? (
               <div className="no_filter_message">
                 <HiOutlineEmojiSad size={40} />
-                <h2>Não há casas com o filtro aplicado.</h2>
+                <h1>Não há casas com o filtro aplicado.</h1>
               </div>
             ) : filterList ? (
-              filterList.map((product, index) => (
-                <CardHouse key={index} product={product} />
-              ))
+              filterList
+                .sort(function (a, b) {
+                  if (a.price > b.price) {
+                    return 1;
+                  }
+                  if (a.price < b.price) {
+                    return -1;
+                  }
+
+                  return 0;
+                })
+                .map((product, index) => (
+                  <CardHouse key={index} product={product} />
+                ))
             ) : (
-              homeList.map((product, index) => (
-                <CardHouse key={index} product={product} />
-              ))
+              homeList
+                .sort(function (a, b) {
+                  if (a.price > b.price) {
+                    return 1;
+                  }
+                  if (a.price < b.price) {
+                    return -1;
+                  }
+
+                  return 0;
+                })
+                .map((product, index) => (
+                  <CardHouse key={index} product={product} />
+                ))
             )}
           </List>
         </ContentContainer>

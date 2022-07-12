@@ -7,10 +7,12 @@ export const Container = styled.div`
   height: 100%;
 
   footer {
-    position: absolute;
-    bottom: 0px;
-
     margin-top: 1rem;
+
+    @media (min-width: 1024px) {
+      position: absolute;
+      bottom: 0px;
+    }
   }
 
   .btnHome {

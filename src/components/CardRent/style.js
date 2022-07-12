@@ -23,6 +23,7 @@ export const ImgDiv = styled.div`
 
     width: 100%;
     max-width: 350px;
+    max-height: 178.66px;
   }
 `;
 

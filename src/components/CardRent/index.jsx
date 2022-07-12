@@ -7,12 +7,15 @@ import {
   TotalPrice,
 } from "./style";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import api from "../../services/api";
+import { RentsContext } from "../../providers/Rents/Rents";
 
-function CardRent({ myRents }) {
+function CardRent({ myRent, user }) {
   const [owner, setOwner] = useState({});
+
+  const { deleteBookHouse } = useContext(RentsContext);
 
   useEffect(() => {
     async function getHomeAndOwner(houseId) {
@@ -24,8 +27,8 @@ function CardRent({ myRents }) {
       } catch (error) {}
     }
 
-    getHomeAndOwner(myRents.houseId);
-  }, [myRents.houseId]);
+    getHomeAndOwner(myRent.houseId);
+  }, [myRent.houseId]);
 
   function getTotalDays(start, end) {
     const startDate = new Date(start);
@@ -39,14 +42,6 @@ function CardRent({ myRents }) {
     return days;
   }
 
-  function fixDateToShow(date) {
-    const dateFix = date.split("-");
-
-    const dateShow = `${dateFix[2].slice(0, 2)}/${dateFix[1]}/${dateFix[0]}`;
-
-    return dateShow;
-  }
-
   function formatPhone(phone) {
     const ddd = phone.slice(0, 2);
     const firstPart = phone.slice(2, 7);
@@ -57,11 +52,23 @@ function CardRent({ myRents }) {
     return adjustedPhone;
   }
 
-  const totalInDays = getTotalDays(myRents.startDate, myRents.endDate);
+  const totalInDays = getTotalDays(myRent.startDate, myRent.endDate);
 
-  const startDateShow = fixDateToShow(myRents.startDate);
+  const startDateApi = new Date(myRent.startDate);
 
-  const endDateShow = fixDateToShow(myRents.endDate);
+  const endDateApi = new Date(myRent.endDate);
+
+  const startDateShow = `${startDateApi.getDate()}/${
+    startDateApi.getMonth() < 10
+      ? `0${startDateApi.getMonth()}`
+      : startDateApi.getMonth()
+  }/${startDateApi.getFullYear()}`;
+
+  const endDateShow = `${endDateApi.getDate()}/${
+    endDateApi.getMonth() < 10
+      ? `0${endDateApi.getMonth()}`
+      : endDateApi.getMonth()
+  }/${endDateApi.getFullYear()}`;
 
   const housePrice = owner?.price * totalInDays;
 
@@ -100,7 +107,9 @@ function CardRent({ myRents }) {
             </TotalPrice>
           </PeriodAndPrice>
           <HostInfo>
-            <h3>Dados Locador</h3>
+            <h3>
+              {user.atribution === "host" ? "Dados Locatário" : "Dados Locador"}
+            </h3>
             <p>
               Nome: <span>{owner?.user?.name}</span>
             </p>
@@ -111,7 +120,7 @@ function CardRent({ myRents }) {
               Email: <span>{owner?.user?.email}</span>
             </p>
           </HostInfo>
-          <button onClick={() => console.log(owner?.user?.phone)}>
+          <button onClick={() => deleteBookHouse(myRent.id)}>
             Cancelar Reserva
           </button>
         </BookingInfo>

@@ -20,8 +20,6 @@ function TenantPanel() {
   const { user } = useContext(UserContext);
   const { rents } = useContext(RentsContext);
 
-  // const owner = get info about house owner;
-
   const myRents = rents.filter((elem) => elem.tenantId === user?.id);
 
   return (
@@ -34,7 +32,7 @@ function TenantPanel() {
       <Content>
         {myRents.length !== 0 ? (
           myRents.map((elem, index) => (
-            <CardRent key={elem.id} myRents={myRents[index]} />
+            <CardRent key={index} myRent={elem} user={user} />
           ))
         ) : (
           <Message>
