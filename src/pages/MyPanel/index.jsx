@@ -185,7 +185,7 @@ export const MyPanel = () => {
       capacity,
       imgs: [img, img1, img2, img3, img4],
     };
-    console.log(newObj);
+
     if (home) {
       await editHome(home?.id, newObj);
       await getHomeList();

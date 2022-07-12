@@ -28,13 +28,20 @@ function SignUp() {
     password: yup
       .string()
       .required("Senha obrigatória")
-      .matches(/^(?=.{5,})/, "Mínimo de 5 caracteres"),
+      .matches(
+        /^(?=.*[a-z])(?=.{6,})/,
+        "Mínimo 1 letra, 1 número e 6 caracteres"
+      ),
     passwordConfirm: yup
       .string()
       .required("Confirme a senha")
       .oneOf([yup.ref("password")], "Senhas diferentes"),
     cpf: yup.string().required("CPF obrigatório"),
-    phone: yup.string().required("Telefone obrigatório"),
+    phone: yup
+      .string()
+      .required("Telefone obrigatório")
+      .min(11, "Deve conter 11 números")
+      .max(11, "Deve conter 11 números"),
     atribution: yup.string().required("Atribuição obrigatória"),
   });
 

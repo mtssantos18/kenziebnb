@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import api from "../../services/api";
+
 import { UserContext } from "../User/User";
+
+import { toast } from "react-toastify";
 
 export const RentsContext = createContext([]);
 

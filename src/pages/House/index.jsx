@@ -26,6 +26,7 @@ function House() {
 
   useEffect(() => {
     setHouse(homeList.find((e) => e.id === +selected.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps, no-sparse-arrays
   }, [, homeList]);
 
   useEffect(() => {
@@ -50,7 +51,6 @@ function House() {
         verification = false;
       })
       .catch((err) => {
-        console.log(err);
         verification = true;
       });
     if (!localStorage.getItem("@Kenziebnb:token")) {
