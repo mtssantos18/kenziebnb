@@ -13,10 +13,12 @@ import Button from "../../components/Button";
 import RentModal from "../../components/RentModal";
 import api from "../../services/api";
 import { toast } from "react-toastify";
+import { UserContext } from "../../providers/User/User";
 
 function House() {
   const selected = useParams();
   const history = useHistory();
+  const { user } = useContext(UserContext);
   const [showModal, setShowModal] = useState(false);
   const [house, setHouse] = useState({});
   const { homeList } = useContext(HomesContext);
@@ -36,21 +38,29 @@ function House() {
     });
   }, []);
 
-  function handleClickBtnRent() {
-    const response = api
-      .get("/users", {
+  async function handleClickBtnRent() {
+    let verification;
+    await api
+      .get("/rents", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("@Kenziebnb:token")}`,
         },
       })
-      .catch((err) => err.response.data);
-
+      .then((res) => {
+        verification = false;
+      })
+      .catch((err) => {
+        console.log(err);
+        verification = true;
+      });
     if (!localStorage.getItem("@Kenziebnb:token")) {
       history.push("/login");
-    } else if (response) {
+    } else if (verification) {
       toast.error("Sessão expirada");
       localStorage.clear();
       setTimeout(() => history.push("/login"), 2500);
+    } else if (user?.atribution === "host") {
+      toast.error("Somente usuários atribuidos como locatário podem reservar");
     } else {
       setShowModal(true);
     }

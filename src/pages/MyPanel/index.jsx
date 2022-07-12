@@ -12,19 +12,16 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Container } from "./styles";
-import { FilterContext } from "../../providers/Filter/Filter";
 import { CheckboxContainer } from "../../components/FilterModal/style";
-import House from "../House";
+import Button from "../../components/Button";
 
 export const MyPanel = () => {
   const { getUser, user } = useContext(UserContext);
-  const { homeList } = useContext(HomesContext);
+  const { homeList, addHome, editHome, getHomeList } = useContext(HomesContext);
   const history = useHistory();
-  // const [user, setUser] = useState(false);
   const [home, setHome] = useState({});
   const [host, setHost] = useState(false);
   const [myHouse, setMyHouse] = useState(true);
-  const [loaded, setLoaded] = useState(false);
 
   const [confortsElements, setConfortsElements] = useState([
     { label: "Wi-Fi", value: "wifi", state: false },
@@ -52,7 +49,6 @@ export const MyPanel = () => {
   useEffect(() => {
     getUser(localStorage.getItem("@Kenziebnb:id"))
       .then((res) => {
-        // setUser(res);
         if (res.atribution === "host") {
           setHost(true);
         }
@@ -63,31 +59,82 @@ export const MyPanel = () => {
           const conforts = [...confortsElements];
           const newConforts = conforts.map((elem) => {
             elem.state = newHome.conforts[elem.value];
-
             return elem;
           });
-
           setConfortsElements(newConforts);
         }
-
         return newHome;
       })
       .then((res) => {
         setHome(res);
       });
-    console.log(user);
   }, [, homeList]);
 
-  const newConforts = {};
-  confortsElements.map((elem) => {
-    const value = elem.value;
-
-    return (newConforts[value] = elem.state);
+  yup.addMethod(yup.string, "stripEmptyString", function () {
+    return this.transform((value) => (value === "" ? undefined : value));
   });
 
   const formSchema = yup.object().shape({
-    email: yup.string().required("Email obrigatório").email("Email inválido"),
-    password: yup.string().required("Senha obrigatória"),
+    title: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.title),
+    street: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.address?.street),
+    number: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(String(home?.address?.number)),
+    city: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.address?.city),
+    description: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.description),
+    capacity: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(String(home?.capacity)),
+    price: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(String(home?.price)),
+    img: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs && home?.imgs[0]),
+    img1: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs && home?.imgs[1]),
+    img2: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs && home?.imgs[2]),
+    img3: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs && home?.imgs[3]),
+    img4: yup
+      .string()
+      .required("Campo Obrigatorio")
+      .stripEmptyString()
+      .default(home?.imgs && home?.imgs[4]),
   });
 
   const {
@@ -97,7 +144,51 @@ export const MyPanel = () => {
   } = useForm({ resolver: yupResolver(formSchema) });
 
   function onSubmitFunction(data) {
-    console.log(data);
+    const {
+      city,
+      description,
+      img,
+      img1,
+      img2,
+      img3,
+      img4,
+      price,
+      street,
+      number,
+      title,
+      capacity,
+    } = data;
+    const newConforts = {};
+    confortsElements.map((elem) => {
+      const value = elem.value;
+
+      return (newConforts[value] = elem.state);
+    });
+    const newObj = {
+      title,
+      userId: user.id,
+      description,
+      address: {
+        street,
+        city,
+        number,
+      },
+      conforts: newConforts,
+      reviews: Math.floor(Math.random() * (5 - 4)) + 4,
+      price: +price,
+      capacity,
+      imgs: [img, img1, img2, img3, img4],
+    };
+    console.log(newObj);
+    if (home) {
+      editHome(home?.id, newObj);
+      getHomeList();
+      setTimeout(() => history.push(`/house/${homeList?.length - 2}`), 2500);
+    } else {
+      addHome(newObj);
+      getHomeList();
+      setTimeout(() => history.push(`/house/${homeList?.length - 1}`), 3000);
+    }
   }
 
   return (
@@ -184,73 +275,88 @@ export const MyPanel = () => {
                     ></textarea>
                   </div>
                   <div className="capacityPrice">
-                    <Input
-                      label="Hóspedes"
-                      name="capacity"
-                      type="text"
-                      placeholder="Capacidade"
-                      defaultValue={home?.capacity}
-                      register={register}
-                      error={errors.capacity?.message}
-                    />
-                    <Input
-                      label="Valor da locação"
-                      name="price"
-                      type="text"
-                      placeholder="Valor..."
-                      defaultValue={home?.price}
-                      register={register}
-                      error={errors.price?.message}
-                    />
+                    <h2>Valor e quantidade de hóspedes</h2>
+                    <div>
+                      <Input
+                        label="Hóspedes"
+                        name="capacity"
+                        type="text"
+                        placeholder="Capacidade"
+                        defaultValue={home?.capacity}
+                        register={register}
+                        error={errors.capacity?.message}
+                      />
+                      <Input
+                        label="Valor da locação"
+                        name="price"
+                        type="text"
+                        placeholder="Valor..."
+                        defaultValue={home?.price}
+                        register={register}
+                        error={errors.price?.message}
+                      />
+                    </div>
                   </div>
-                  <div className="containerImgs">
-                    <h2>Imagens</h2>
-                    <Input
-                      name="img0"
-                      label="Imagem 1"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[0]}
-                      register={register}
-                      error={errors.img0?.message}
-                    />
-                    <Input
-                      name="img1"
-                      label="Imagem 2"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[1]}
-                      register={register}
-                      error={errors.img1?.message}
-                    />
-                    <Input
-                      name="img2"
-                      label="Imagem 3"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[2]}
-                      register={register}
-                      error={errors.img2?.message}
-                    />
-                    <Input
-                      name="img3"
-                      label="Imagem 4"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[3]}
-                      register={register}
-                      error={errors.img3?.message}
-                    />
-                    <Input
-                      name="img4"
-                      label="Imagem 5"
-                      type="text"
-                      placeholder="Insira o link de sua imagem"
-                      defaultValue={home?.imgs[4]}
-                      register={register}
-                      error={errors.img4?.message}
-                    />
-                  </div>
+                  {
+                    <div className="containerImgs">
+                      <h2>Imagens</h2>
+                      <Input
+                        name="img"
+                        label="Imagem 1"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[0]}
+                        register={register}
+                        error={errors.img0?.message}
+                      />
+                      <Input
+                        name="img1"
+                        label="Imagem 2"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[1]}
+                        register={register}
+                        error={errors.img1?.message}
+                      />
+                      <Input
+                        name="img2"
+                        label="Imagem 3"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[2]}
+                        register={register}
+                        error={errors.img2?.message}
+                      />
+                      <Input
+                        name="img3"
+                        label="Imagem 4"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[3]}
+                        register={register}
+                        error={errors.img3?.message}
+                      />
+                      <Input
+                        name="img4"
+                        label="Imagem 5"
+                        type="text"
+                        placeholder="Insira o link de sua imagem"
+                        defaultValue={home?.imgs[4]}
+                        register={register}
+                        error={errors.img4?.message}
+                      />
+                    </div>
+                  }
+                </div>
+                <div className="btnEditHome">
+                  {home ? (
+                    <Button type="submit">Salvar Alterações</Button>
+                  ) : (
+                    <Button type="submit">Nova hospedagem</Button>
+                  )}
+                  <button type="button" onClick={() => console.log("sssssss")}>
+                    Deletar
+                  </button>
                 </div>
               </form>
             </div>

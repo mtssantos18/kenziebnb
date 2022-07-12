@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import { Container } from "./styles";
-import {
-  GoogleMap,
-  Marker,
-  useJsApiLoader,
-  InfoBox,
-} from "@react-google-maps/api";
-import { BsHouseFill } from "react-icons/bs";
+import iconHouse from "../../assets/bsHouseFill.svg";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 function Map({ address }) {
-  const [map, setMap] = useState(null);
-
+  const [mark, setMark] = useState(false);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyAJ8vU8FUxOZ7NtZnBKF_0nDdZ1qa47KWk",
@@ -25,10 +19,11 @@ function Map({ address }) {
       )
         .then((res) => res.json())
         .then((res) => {
-          // console.log(res.results[0].geometry.location);
           setCenter(res.results[0].geometry.location);
+        })
+        .finally(() => {
+          setMark(true);
         });
-      // .catch((err) => console.log(err));
     }
   }, [address]);
 
@@ -38,27 +33,12 @@ function Map({ address }) {
     borderRadius: "10px",
   };
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-  const onLoad = (marker) => {
-    // console.log("marker: ", marker);
-  };
   return (
     <Container>
       <h3>Localização</h3>
-      <div className="iconHouse">
-        <BsHouseFill />
-      </div>
       {isLoaded && (
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={16}>
-          <Marker
-            onLoad={onLoad}
-            position={center}
-            icon={
-              "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-            }
-          />
+          {mark && <Marker position={center} icon={iconHouse} />}
         </GoogleMap>
       )}
     </Container>

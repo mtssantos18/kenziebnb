@@ -54,6 +54,11 @@ export const UserProvider = ({ children }) => {
 
       setUser(response.data.user);
 
+      // const userCopy = {
+      //   id: response.data.user.id,
+      //   atribution: response.data.user.atribution,
+      // };
+
       localStorage.setItem("@Kenziebnb:token", response.data.accessToken);
       localStorage.setItem("@Kenziebnb:id", response.data.user.id);
 
@@ -61,7 +66,7 @@ export const UserProvider = ({ children }) => {
 
       setTimeout(() => {
         if (response.data.user.atribution === "host") {
-          history.push("/mypanel");
+          history.push("/host");
         } else {
           history.push("/");
         }

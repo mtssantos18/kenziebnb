@@ -5,6 +5,7 @@ import House from "../pages/House/index.jsx";
 import Login from "../pages/Login/index.jsx";
 import { MyPanel } from "../pages/MyPanel/index.jsx";
 import SignUp from "../pages/SignUp/index.jsx";
+import TenantPanel from "../pages/TenantPanel/index.jsx";
 
 function Routes() {
   return (
@@ -21,8 +22,11 @@ function Routes() {
       <Route path="/house/:id">
         <House />
       </Route>
-      <Route path="/mypanel">
+      <Route path="/host">
         <MyPanel />
+      </Route>
+      <Route path="/tenant">
+        <TenantPanel />
       </Route>
     </Switch>
   );
