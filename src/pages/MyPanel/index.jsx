@@ -1,12 +1,17 @@
 import React, { useContext, useEffect } from "react";
+
 import { useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+
 import { useHistory } from "react-router-dom";
+
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Input from "../../components/Input";
+
 import { HomesContext } from "../../providers/Homes/Homes";
 import { UserContext } from "../../providers/User/User";
+
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
