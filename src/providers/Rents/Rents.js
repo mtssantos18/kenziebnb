@@ -29,6 +29,7 @@ export const RentsProvider = ({ children }) => {
 
   function bookHouse(rent) {
     const token = localStorage.getItem("@Kenziebnb:token");
+
     api
       .post("/rents", rent, {
         headers: {
@@ -40,8 +41,25 @@ export const RentsProvider = ({ children }) => {
     setRents([...rents, rent]);
   }
 
+  function deleteBookHouse(bookId) {
+    const token = localStorage.getItem("@Kenziebnb:token");
+
+    const newList = rents.filter((elem) => elem.id !== bookId);
+
+    setRents(newList);
+
+    api
+      .delete(`/rents/${bookId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => toast.success("Reserva cancelada"))
+      .catch((err) => toast.error("Algo deu errado"));
+  }
+
   return (
-    <RentsContext.Provider value={{ rents, bookHouse }}>
+    <RentsContext.Provider value={{ rents, bookHouse, deleteBookHouse }}>
       {children}
     </RentsContext.Provider>
   );
