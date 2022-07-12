@@ -12,7 +12,7 @@ import { useState, useEffect, useContext } from "react";
 import api from "../../services/api";
 import { RentsContext } from "../../providers/Rents/Rents";
 
-function CardRent({ myRent }) {
+function CardRent({ myRent, user }) {
   const [owner, setOwner] = useState({});
 
   const { deleteBookHouse } = useContext(RentsContext);
@@ -107,7 +107,9 @@ function CardRent({ myRent }) {
             </TotalPrice>
           </PeriodAndPrice>
           <HostInfo>
-            <h3>Dados Locador</h3>
+            <h3>
+              {user.atribution === "host" ? "Dados Locatário" : "Dados Locador"}
+            </h3>
             <p>
               Nome: <span>{owner?.user?.name}</span>
             </p>

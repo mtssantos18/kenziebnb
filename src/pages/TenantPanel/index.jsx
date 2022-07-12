@@ -31,7 +31,9 @@ function TenantPanel() {
       <Title>Minhas Reservas</Title>
       <Content>
         {myRents.length !== 0 ? (
-          myRents.map((elem, index) => <CardRent key={index} myRent={elem} />)
+          myRents.map((elem, index) => (
+            <CardRent key={index} myRent={elem} user={user} />
+          ))
         ) : (
           <Message>
             <HiOutlineEmojiSad size={40} />
