@@ -47,7 +47,7 @@ function Home() {
             {filterList.length === 0 ? (
               <div className="no_filter_message">
                 <HiOutlineEmojiSad size={40} />
-                <h1>Não há casas com o filtro aplicado.</h1>
+                <h2>Não há casas com o filtro aplicado.</h2>
               </div>
             ) : filterList ? (
               filterList.map((product, index) => (
