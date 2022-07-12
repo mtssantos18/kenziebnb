@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   background-color: var(--grey-2);
 
-  width: 100%;
-  max-width: 360px;
+  min-width: 280px;
+  max-width: 300px;
 
   border-radius: 10px;
 
@@ -13,13 +13,6 @@ export const Container = styled.div`
   gap: 1rem;
 
   padding: 1rem;
-`;
-
-export const Title = styled.h2`
-  font-weight: 600;
-  font-family: Inter;
-  font-size: 16px;
-  color: #495057;
 `;
 
 export const ImgDiv = styled.div`
@@ -38,6 +31,7 @@ export const BookingInfo = styled.div`
   gap: 1rem;
 
   color: var(--grey-4);
+
   h3 {
     font-size: 18px;
     font-weight: 700;

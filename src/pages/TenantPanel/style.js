@@ -37,9 +37,32 @@ export const Container = styled.div`
   }
 `;
 
+export const Title = styled.h2`
+  font-weight: 600;
+  font-family: Inter;
+  font-size: 16px;
+  color: #495057;
+
+  padding: 0.5rem 1.3rem;
+`;
+
 export const Content = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 1rem;
+
+  height: 550px;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
 
   padding: 0 1.3rem;
+
+  @media (min-width: 800px) {
+    overflow-x: hidden;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `;

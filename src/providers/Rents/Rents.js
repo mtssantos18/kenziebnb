@@ -8,6 +8,7 @@ export const RentsContext = createContext([]);
 export const RentsProvider = ({ children }) => {
   const [rents, setRents] = useState([]);
   const history = useHistory();
+
   useEffect(() => {
     const token = localStorage.getItem("@Kenziebnb:token");
     api

@@ -1,75 +1,119 @@
-/**
- * Fazer o componente CardRent, que será o componente que mostrará o card de aluguel.
- * O componente deve ter as seguintes propriedades:
- * - title: string que será o título do card, ex: "Minhas reservas".
- * - imagem: imagem que será exibida no card, ex: "./src/assets/image-reservation.svg"
- * - span: string que será o texto que será exibido o status da reservano card, ex: "Pendente".
- * - text: string que terá o número de hóspedes, ex: "4 hóspedes".
- * - text2: string que terá o período com data de entratada e saída, ex: "Entrada: 01/01/2019, Saída: 31/01/2019".
- * - text3: string que terá o total de dias, ex: "5 dias".
- * - text4: string que terá o valor da reserva, ex: "R$ 3.935,00".
- * - title: string que será o título Dados do Locador, ex: "Dados do Locador".
- * - text5: string que terá o nome do locador, ex: "Gilsinho das Casas".
- * - text6: string que terá o número do telefone do locador, ex: "(97) 97741-8574".
- * - text7: string que terá o email do locador, ex: "gilsinho_locador@gmail.com".
- * - button: string que será o texto do botão, ex: "Cancelar Reserva".
- * Receber por props as reservas e o usuário.
- * Fazer um function chamada CardRent que retornará o componente CardRent.
- *
- */
 import {
   BookingInfo,
   Container,
   HostInfo,
   ImgDiv,
   PeriodAndPrice,
-  Title,
   TotalPrice,
 } from "./style";
-import image from "../../assets/image-reservation.svg";
 
-function CardRent(props) {
+import { useState, useEffect } from "react";
+
+import api from "../../services/api";
+
+function CardRent({ myRents }) {
+  const [owner, setOwner] = useState({});
+
+  useEffect(() => {
+    async function getHomeAndOwner(houseId) {
+      try {
+        const response = await api.get(`/homes/${houseId}?_expand=user`);
+
+        setOwner(response.data);
+        return response.data;
+      } catch (error) {}
+    }
+
+    getHomeAndOwner(myRents.houseId);
+  }, [myRents.houseId]);
+
+  function getTotalDays(start, end) {
+    const startDate = new Date(start);
+
+    const endDate = new Date(end);
+
+    const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+
+    const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    return days;
+  }
+
+  function fixDateToShow(date) {
+    const dateFix = date.split("-");
+
+    const dateShow = `${dateFix[2].slice(0, 2)}/${dateFix[1]}/${dateFix[0]}`;
+
+    return dateShow;
+  }
+
+  function formatPhone(phone) {
+    const ddd = phone.slice(0, 2);
+    const firstPart = phone.slice(2, 7);
+    const secondPart = phone.slice(7, 11);
+
+    const adjustedPhone = `(${ddd}) ${firstPart}-${secondPart}`;
+
+    return adjustedPhone;
+  }
+
+  const totalInDays = getTotalDays(myRents.startDate, myRents.endDate);
+
+  const startDateShow = fixDateToShow(myRents.startDate);
+
+  const endDateShow = fixDateToShow(myRents.endDate);
+
+  const housePrice = owner?.price * totalInDays;
+
+  const phoneNumber = owner?.user?.phone && formatPhone(owner?.user?.phone);
+
   return (
     <>
-      <Title>Minhas Reservas</Title>
       <Container>
         <ImgDiv>
-          <img src={image} alt="imagem" />
+          <img src={owner.imgs && owner?.imgs[0]} alt="Casa" />
         </ImgDiv>
         <BookingInfo>
           <PeriodAndPrice>
             <p>
-              Hóspedes: <span>4</span>
+              Hóspedes: <span>{owner.capacity}</span>
             </p>
             <h3>Período</h3>
             <p>
-              Entrada: <span>05/07/2022</span>
+              Entrada: <span>{startDateShow}</span>
             </p>
             <p>
-              Saída: <span>10/07/2022</span>
+              Saída: <span>{endDateShow}</span>
             </p>
             <TotalPrice>
               <p>Total de dias:</p>
-              <p>5</p>
+              <p>{totalInDays}</p>
             </TotalPrice>
             <TotalPrice>
               <p>Total da reserva:</p>
-              <p>R$ 4.000,00</p>
+              <p>
+                {housePrice.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </p>
             </TotalPrice>
           </PeriodAndPrice>
           <HostInfo>
             <h3>Dados Locador</h3>
             <p>
-              Nome: <span>Gilsinho</span>
+              Nome: <span>{owner?.user?.name}</span>
             </p>
             <p>
-              Telefone: <span>129991930</span>
+              Telefone: <span>{phoneNumber}</span>
             </p>
             <p>
-              Email: <span>gilsinhobala@mail.com</span>
+              Email: <span>{owner?.user?.email}</span>
             </p>
           </HostInfo>
-          <button>Cancelar Reserva</button>
+          <button onClick={() => console.log(owner?.user?.phone)}>
+            Cancelar Reserva
+          </button>
         </BookingInfo>
       </Container>
     </>
