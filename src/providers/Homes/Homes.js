@@ -20,26 +20,32 @@ export const HomesProvider = ({ children }) => {
 
   async function addHome(home) {
     try {
-      const response = await api.post("/homes", home);
+      const token = localStorage.getItem("@Kenziebnb:token");
+      const response = await api.post("/homes", home, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       toast.success("Casa adicionada com sucesso!");
     } catch (error) {
+      console.log(error);
       toast.error("Informação insuficente para adicionar nova casa");
     }
   }
 
   async function editHome(id, data) {
     try {
-      const token = JSON.parse(localStorage.getItem("@Kenziebnb:token"));
+      const token = localStorage.getItem("@Kenziebnb:token");
       const response = await api.patch(`/homes/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-    } catch {
-      toast.error("Algo deu errado!");
-    } finally {
       toast.success("Alterado com sucesso!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Algo deu errado!");
     }
   }
 

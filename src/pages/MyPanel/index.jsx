@@ -16,8 +16,8 @@ import { CheckboxContainer } from "../../components/FilterModal/style";
 import Button from "../../components/Button";
 
 export const MyPanel = () => {
-  const { getUser } = useContext(UserContext);
-  const { homeList } = useContext(HomesContext);
+  const { getUser, user } = useContext(UserContext);
+  const { homeList, addHome, editHome, getHomeList } = useContext(HomesContext);
   const history = useHistory();
   const [home, setHome] = useState({});
   const [host, setHost] = useState(false);
@@ -145,14 +145,51 @@ export const MyPanel = () => {
   } = useForm({ resolver: yupResolver(formSchema) });
 
   function onSubmitFunction(data) {
+    const {
+      city,
+      description,
+      img,
+      img1,
+      img2,
+      img3,
+      img4,
+      price,
+      street,
+      number,
+      title,
+      capacity,
+    } = data;
     const newConforts = {};
     confortsElements.map((elem) => {
       const value = elem.value;
 
       return (newConforts[value] = elem.state);
     });
-    data.conforts = newConforts;
-    console.log(data);
+    const newObj = {
+      title,
+      userId: user.id,
+      description,
+      address: {
+        street,
+        city,
+        number,
+      },
+      conforts: newConforts,
+      reviews: Math.floor(Math.random() * (5 - 4)) + 4,
+      price: +price,
+      capacity,
+      imgs: [img, img1, img2, img3, img4],
+    };
+    console.log(newObj);
+    if (home) {
+      editHome(home?.id, newObj);
+      getHomeList();
+      setTimeout(() => history.push(`/house/${homeList?.length - 2}`), 2500);
+    } else {
+      addHome(newObj);
+      getHomeList();
+      setTimeout(() => history.push(`/house/${homeList?.length - 1}`), 3000);
+    }
   }
 
   return (
@@ -316,8 +353,11 @@ export const MyPanel = () => {
                   {home ? (
                     <Button type="submit">Salvar Alterações</Button>
                   ) : (
-                    <Button>Nova hospedagem</Button>
+                    <Button type="submit">Nova hospedagem</Button>
                   )}
+                  <button type="button" onClick={() => console.log("sssssss")}>
+                    Deletar
+                  </button>
                 </div>
               </form>
             </div>
