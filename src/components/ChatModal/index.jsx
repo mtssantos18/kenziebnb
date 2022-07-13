@@ -24,6 +24,8 @@ function ChatModal({ myRent, messages, setShowModalChat, tenant, owner }) {
       message: value,
       sentBy: user?.atribution,
       time: new Date(),
+      tenantId: tenant?.id,
+      hostId: owner?.user?.id,
     };
     const newArray = [...messages, message];
     myRent.messages = newArray;
@@ -34,10 +36,20 @@ function ChatModal({ myRent, messages, setShowModalChat, tenant, owner }) {
   useEffect(() => {
     getUser(user.id);
   }, []);
-
+  const messagesFilteredTenant = messages?.filter(
+    (elem) => elem.tenantId === tenant?.id && elem.hostId === owner?.user?.id
+  );
   return (
     <Container>
       <div className="modal">
+        <button
+          onClick={() =>
+            console.log(messagesFilteredTenant, messages[2]?.hostId, tenant?.id)
+          }
+        >
+          clique aqui
+        </button>
+
         <header>
           <h2>Mensagens</h2>
           <MdClose onClick={() => setShowModalChat(false)} />
@@ -45,7 +57,12 @@ function ChatModal({ myRent, messages, setShowModalChat, tenant, owner }) {
         <ul className="containerMessages">
           {tenant &&
             messages
-              ?.sort(
+              ?.filter(
+                (elem) =>
+                  elem.tenantId === tenant?.id &&
+                  elem.hostId === owner?.user?.id
+              )
+              .sort(
                 (a, b) =>
                   new Date(a.time).getTime() - new Date(b.time).getTime()
               )

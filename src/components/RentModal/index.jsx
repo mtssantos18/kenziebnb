@@ -81,6 +81,8 @@ function RentModal({ setShowModal, house }) {
             "Obrigado por escolher a minha residência, para maiores informações fico à disposição!",
           time: new Date(),
           id: 1,
+          tenantId: user?.id,
+          hostId: house?.userId,
         },
       ],
     };
