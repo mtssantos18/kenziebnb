@@ -36,20 +36,9 @@ function ChatModal({ myRent, messages, setShowModalChat, tenant, owner }) {
   useEffect(() => {
     getUser(user.id);
   }, []);
-  const messagesFilteredTenant = messages?.filter(
-    (elem) => elem.tenantId === tenant?.id && elem.hostId === owner?.user?.id
-  );
   return (
     <Container>
       <div className="modal">
-        <button
-          onClick={() =>
-            console.log(messagesFilteredTenant, messages[2]?.hostId, tenant?.id)
-          }
-        >
-          clique aqui
-        </button>
-
         <header>
           <h2>Mensagens</h2>
           <MdClose onClick={() => setShowModalChat(false)} />
