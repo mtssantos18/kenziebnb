@@ -6,7 +6,6 @@ import { HiOutlineEmojiSad } from "react-icons/hi";
 import { Link, useHistory } from "react-router-dom";
 
 import CardRent from "../../components/CardRent";
-import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 
 import { RentsContext } from "../../providers/Rents/Rents";
