@@ -19,8 +19,9 @@ import { RentsContext } from "../../providers/Rents/Rents";
 
 function CardRent({ myRent, user }) {
   const [owner, setOwner] = useState({});
+  const [tenant, setTenant] = useState(false);
 
-  const { deleteBookHouse } = useContext(RentsContext);
+  const { deleteBookHouse, editBook } = useContext(RentsContext);
 
   useEffect(() => {
     async function getHomeAndOwner(houseId) {
@@ -28,12 +29,15 @@ function CardRent({ myRent, user }) {
         const response = await api.get(`/homes/${houseId}?_expand=user`);
 
         setOwner(response.data);
+        const newTenant = await getTenant();
+        setTenant(newTenant);
         return response.data;
       } catch (error) {}
     }
 
     getHomeAndOwner(myRent.houseId);
-  }, [myRent.houseId]);
+    console.log(myRent);
+  }, [myRent.houseId, myRent.status]);
 
   function getTotalDays(start, end) {
     const startDate = new Date(start);
@@ -57,6 +61,20 @@ function CardRent({ myRent, user }) {
     return adjustedPhone;
   }
 
+  async function handleConfirmRent() {
+    myRent.status = "confirmed";
+    console.log(myRent);
+    await editBook(myRent.id, myRent);
+  }
+  async function getTenant() {
+    const response = await api.get(`/users/${myRent.tenantId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("@Kenziebnb:token")}`,
+      },
+    });
+    return response.data;
+  }
+
   const totalInDays = getTotalDays(myRent.startDate, myRent.endDate);
 
   const startDateApi = new Date(myRent.startDate);
@@ -77,7 +95,10 @@ function CardRent({ myRent, user }) {
 
   const housePrice = owner?.price * totalInDays;
 
-  const phoneNumber = owner?.user?.phone && formatPhone(owner?.user?.phone);
+  const phoneNumber =
+    user.atribution !== "host"
+      ? owner?.user?.phone && formatPhone(owner?.user?.phone)
+      : tenant?.phone && formatPhone(tenant?.phone);
 
   return (
     <>
@@ -91,7 +112,7 @@ function CardRent({ myRent, user }) {
               <p>
                 Hóspedes: <span>{owner.capacity}</span>
               </p>
-              <button>
+              <button onClick={getTenant}>
                 <BsFillChatTextFill size={18} />
               </button>
               {myRent?.status === "pending" ? (
@@ -122,22 +143,44 @@ function CardRent({ myRent, user }) {
             </TotalPrice>
           </PeriodAndPrice>
           <HostInfo>
-            <h3>
-              {user.atribution === "host" ? "Dados Locatário" : "Dados Locador"}
-            </h3>
-            <p>
-              Nome: <span>{owner?.user?.name}</span>
-            </p>
-            <p>
-              Telefone: <span>{phoneNumber}</span>
-            </p>
-            <p>
-              Email: <span>{owner?.user?.email}</span>
-            </p>
+            {user.atribution !== "host" ? (
+              <>
+                <h3>Dados Locador</h3>
+                <p>
+                  Nome: <span>{owner?.user?.name}</span>
+                </p>
+                <p>
+                  Telefone: <span>{phoneNumber}</span>
+                </p>
+                <p>
+                  Email: <span>{owner?.user?.email}</span>
+                </p>
+              </>
+            ) : (
+              <>
+                <h3>Dados Locatário</h3>
+                <p>
+                  Nome: <span>{tenant?.name}</span>
+                </p>
+                <p>
+                  Telefone: <span>{phoneNumber}</span>
+                </p>
+                <p>
+                  Email: <span>{tenant?.email}</span>
+                </p>
+              </>
+            )}
           </HostInfo>
-          <button onClick={() => deleteBookHouse(myRent.id)}>
-            Cancelar Reserva
-          </button>
+          <div className="containerBtn">
+            {myRent?.status === "pending" && user.atribution === "host" && (
+              <button className="btnPending" onClick={handleConfirmRent}>
+                Confirmar
+              </button>
+            )}
+            <button onClick={() => deleteBookHouse(myRent.id)}>
+              Cancelar Reserva
+            </button>
+          </div>
         </BookingInfo>
       </Container>
     </>

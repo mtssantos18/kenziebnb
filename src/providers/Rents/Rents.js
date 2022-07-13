@@ -41,6 +41,23 @@ export const RentsProvider = ({ children }) => {
       .catch((err) => toast.error("Tente novamente mais tarde"));
   }
 
+  function editBook(id, data) {
+    const token = localStorage.getItem("@Kenziebnb:token");
+
+    api
+      .patch(`/rents/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.success("Reserva Confirmada!");
+        const newRents = rents.filter((elem) => elem.id !== id);
+        setRents([...newRents, res.data]);
+      })
+      .catch((err) => toast.error("Tente novamente mais tarde"));
+  }
+
   function deleteBookHouse(bookId) {
     const token = localStorage.getItem("@Kenziebnb:token");
 
@@ -59,7 +76,9 @@ export const RentsProvider = ({ children }) => {
   }
 
   return (
-    <RentsContext.Provider value={{ rents, bookHouse, deleteBookHouse }}>
+    <RentsContext.Provider
+      value={{ rents, bookHouse, deleteBookHouse, editBook }}
+    >
       {children}
     </RentsContext.Provider>
   );

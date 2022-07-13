@@ -74,6 +74,13 @@ function RentModal({ setShowModal, house }) {
       houseId: house.id,
       tenantId: user?.id,
       status: "pending",
+      messages: [
+        {
+          sentBy: user.atribution,
+          message: "bagaceira",
+          time: new Date(),
+        },
+      ],
     };
     setSuccessRent(true);
     bookHouse(rent);
