@@ -139,7 +139,6 @@ function CardRent({ myRent, user }) {
             Cancelar Reserva
           </button>
         </BookingInfo>
-        <button onClick={() => console.log(myRent)}>test</button>
       </Container>
     </>
   );
