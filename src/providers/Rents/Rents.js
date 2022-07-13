@@ -74,10 +74,25 @@ export const RentsProvider = ({ children }) => {
       .then((res) => toast.success("Reserva cancelada"))
       .catch((err) => toast.error("Algo deu errado"));
   }
+  function newMessage(id, message) {
+    const token = localStorage.getItem("@Kenziebnb:token");
 
+    api
+      .patch(`/rents/${id}`, message, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.success("Mensagem enviada com sucesso!");
+        const newRents = rents.filter((elem) => elem.id !== id);
+        setRents([...newRents, res.data]);
+      })
+      .catch((err) => toast.error("Tente novamente mais tarde"));
+  }
   return (
     <RentsContext.Provider
-      value={{ rents, bookHouse, deleteBookHouse, editBook }}
+      value={{ rents, bookHouse, deleteBookHouse, editBook, newMessage }}
     >
       {children}
     </RentsContext.Provider>

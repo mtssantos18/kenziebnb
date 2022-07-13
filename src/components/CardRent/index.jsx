@@ -16,10 +16,12 @@ import { BsFillChatTextFill } from "react-icons/bs";
 
 import api from "../../services/api";
 import { RentsContext } from "../../providers/Rents/Rents";
+import ChatModal from "../ChatModal";
 
 function CardRent({ myRent, user }) {
   const [owner, setOwner] = useState({});
   const [tenant, setTenant] = useState(false);
+  const [showModalChat, setShowModalChat] = useState(false);
 
   const { deleteBookHouse, editBook } = useContext(RentsContext);
 
@@ -36,7 +38,6 @@ function CardRent({ myRent, user }) {
     }
 
     getHomeAndOwner(myRent.houseId);
-    console.log(myRent);
   }, [myRent.houseId, myRent.status]);
 
   function getTotalDays(start, end) {
@@ -63,7 +64,6 @@ function CardRent({ myRent, user }) {
 
   async function handleConfirmRent() {
     myRent.status = "confirmed";
-    console.log(myRent);
     await editBook(myRent.id, myRent);
   }
   async function getTenant() {
@@ -103,6 +103,15 @@ function CardRent({ myRent, user }) {
   return (
     <>
       <Container>
+        {showModalChat && (
+          <ChatModal
+            myRent={myRent}
+            messages={myRent?.messages}
+            setShowModalChat={setShowModalChat}
+            owner={owner}
+            tenant={tenant}
+          />
+        )}
         <ImgDiv>
           <img src={owner.imgs && owner?.imgs[0]} alt="Casa" />
         </ImgDiv>
@@ -112,7 +121,8 @@ function CardRent({ myRent, user }) {
               <p>
                 Hóspedes: <span>{owner.capacity}</span>
               </p>
-              <button onClick={getTenant}>
+              <button onClick={() => setShowModalChat(true)}>
+                <div className="iconMsg">{myRent.messages.length}</div>
                 <BsFillChatTextFill size={18} />
               </button>
               {myRent?.status === "pending" ? (

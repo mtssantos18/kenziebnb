@@ -42,10 +42,8 @@ export const MyPanel = () => {
     { label: "Piscina", value: "pool", state: false },
   ]);
   const { rents } = useContext(RentsContext);
-  console.log(rents);
 
   const myRents = rents?.filter((elem) => elem?.houseId === home?.id);
-  console.log(myRents && myRents);
 
   function confortButtonEvent(buttonIndex) {
     setConfortsElements((currentConfortElem) => {
