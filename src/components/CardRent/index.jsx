@@ -1,13 +1,18 @@
 import {
   BookingInfo,
   Container,
+  DivFlex,
   HostInfo,
   ImgDiv,
   PeriodAndPrice,
+  SpanPending,
+  SpanSuccess,
   TotalPrice,
 } from "./style";
 
 import { useState, useEffect, useContext } from "react";
+
+import { BsFillChatTextFill } from "react-icons/bs";
 
 import api from "../../services/api";
 import { RentsContext } from "../../providers/Rents/Rents";
@@ -82,9 +87,19 @@ function CardRent({ myRent, user }) {
         </ImgDiv>
         <BookingInfo>
           <PeriodAndPrice>
-            <p>
-              Hóspedes: <span>{owner.capacity}</span>
-            </p>
+            <DivFlex>
+              <p>
+                Hóspedes: <span>{owner.capacity}</span>
+              </p>
+              <button>
+                <BsFillChatTextFill size={18} />
+              </button>
+              {myRent?.status === "pending" ? (
+                <SpanPending>Pendente</SpanPending>
+              ) : (
+                <SpanSuccess>Confirmado</SpanSuccess>
+              )}
+            </DivFlex>
             <h3>Período</h3>
             <p>
               Entrada: <span>{startDateShow}</span>
@@ -124,6 +139,7 @@ function CardRent({ myRent, user }) {
             Cancelar Reserva
           </button>
         </BookingInfo>
+        <button onClick={() => console.log(myRent)}>test</button>
       </Container>
     </>
   );
