@@ -30,7 +30,11 @@ function SignUp() {
       .string()
       .required("Confirme a senha")
       .oneOf([yup.ref("password")], "Senhas diferentes"),
-    cpf: yup.string().required("CPF obrigatório"),
+    cpf: yup
+      .string()
+      .required("CPF obrigatório")
+      .min(11, "Deve conter 11 números")
+      .max(11, "Deve conter 11 números"),
     phone: yup
       .string()
       .required("Telefone obrigatório")
