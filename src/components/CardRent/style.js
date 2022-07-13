@@ -30,7 +30,7 @@ export const ImgDiv = styled.div`
 export const BookingInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 10px;
 
   color: var(--grey-4);
 
@@ -47,24 +47,35 @@ export const BookingInfo = styled.div`
       font-weight: 400;
     }
   }
+  .containerBtn {
+    display: flex;
+    gap: 5px;
+    button {
+      transition: all 0.3s;
+      background-color: #ab2b2b;
 
-  button {
-    background-color: #ab2b2b;
+      border-radius: 40px;
 
-    border-radius: 40px;
+      margin: 0 auto;
 
-    margin: 0 auto;
+      width: 100%;
+      max-width: 250px;
+      height: 40px;
 
-    width: 80%;
-    max-width: 250px;
-    height: 40px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
 
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--white);
-
-    :hover {
-      background-color: #ff1b11;
+      :hover {
+        background-color: #ff1b11;
+      }
+    }
+    .btnPending {
+      width: 80%;
+      background-color: var(--green-1);
+      :hover {
+        background-color: #54aa54;
+      }
     }
   }
 `;
@@ -88,4 +99,56 @@ export const TotalPrice = styled.div`
 export const HostInfo = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const DivFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--blue-3);
+
+    border-radius: 50px;
+
+    margin: 0 auto;
+
+    width: 35px;
+    height: 30px;
+
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+
+    :hover {
+      background-color: var(--blue-2);
+    }
+  }
+`;
+
+export const SpanSuccess = styled.span`
+  background-color: var(--green-1);
+
+  color: var(--white);
+  font-weight: 500;
+  font-size: 15px;
+
+  padding: 0.2rem;
+
+  border-radius: 10px;
+`;
+export const SpanPending = styled.span`
+  background-color: var(--grey-3);
+
+  color: var(--white);
+  font-weight: 500;
+  font-size: 15px;
+
+  padding: 0.2rem;
+
+  border-radius: 10px;
 `;

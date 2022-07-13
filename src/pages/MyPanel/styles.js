@@ -9,7 +9,14 @@ export const Container = styled.div`
     width: 95%;
     margin: 0 auto;
     display: flex;
-    gap: 10px;
+    gap: 3px;
+
+    @media (min-width: 400px) {
+      gap: 10px;
+      button {
+        font-size: 50px;
+      }
+    }
 
     .btnHome,
     .btnMyHouse {
@@ -19,7 +26,7 @@ export const Container = styled.div`
       height: 26px;
       padding: 0 1rem;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 11px;
       line-height: 17px;
       color: var(--grey-4);
       display: flex;
@@ -30,6 +37,12 @@ export const Container = styled.div`
       &:hover {
         background-color: var(--grey-4);
         color: #fff;
+      }
+
+      @media (min-width: 400px) {
+        gap: 10px;
+
+        font-size: 14px;
       }
     }
   }

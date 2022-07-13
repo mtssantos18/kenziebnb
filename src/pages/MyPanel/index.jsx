@@ -44,7 +44,7 @@ export const MyPanel = () => {
   const { rents } = useContext(RentsContext);
   console.log(rents);
 
-  const myRents = rents?.filter((elem) => elem.houseId === home.id);
+  const myRents = rents?.filter((elem) => elem?.houseId === home?.id);
   console.log(myRents && myRents);
 
   function confortButtonEvent(buttonIndex) {
@@ -65,7 +65,7 @@ export const MyPanel = () => {
   useEffect(() => {
     getUser(localStorage.getItem("@Kenziebnb:id"))
       .then((res) => {
-        if (res.atribution === "host") {
+        if (res?.atribution === "host") {
           setHost(true);
         }
         const newHome = homeList.find((e) => {

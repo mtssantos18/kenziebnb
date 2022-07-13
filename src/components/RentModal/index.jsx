@@ -73,7 +73,7 @@ function RentModal({ setShowModal, house }) {
       endDate: new Date(selectDate[0].endDate),
       houseId: house.id,
       tenantId: user?.id,
-      status: "pendent",
+      status: "pending",
       messages: [
         {
           sentBy: user.atribution,
