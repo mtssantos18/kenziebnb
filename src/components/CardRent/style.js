@@ -113,9 +113,11 @@ export const DivFlex = styled.div`
 
     background-color: var(--blue-3);
 
-    border-radius: 50px;
+    border-radius: 10px;
 
     margin: 0 auto;
+
+    position: relative;
 
     width: 35px;
     height: 30px;
@@ -126,6 +128,18 @@ export const DivFlex = styled.div`
 
     :hover {
       background-color: var(--blue-2);
+    }
+    .iconMsg {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #b00f0f;
+      color: #fff;
+      border-radius: 50%;
+      height: 18px;
+      width: 18px;
+      font-weight: 600;
+      font-size: 12px;
     }
   }
 `;

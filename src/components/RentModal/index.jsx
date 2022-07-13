@@ -76,9 +76,11 @@ function RentModal({ setShowModal, house }) {
       status: "pending",
       messages: [
         {
-          sentBy: user.atribution,
-          message: "bagaceira",
+          sentBy: "host",
+          message:
+            "Obrigado por escolher a minha residência, para maiores informações fico à disposição!",
           time: new Date(),
+          id: 1,
         },
       ],
     };
