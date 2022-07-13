@@ -73,7 +73,18 @@ function RentModal({ setShowModal, house }) {
       endDate: new Date(selectDate[0].endDate),
       houseId: house.id,
       tenantId: user?.id,
-      status: "pendent",
+      status: "pending",
+      messages: [
+        {
+          sentBy: "host",
+          message:
+            "Obrigado por escolher a minha residência, para maiores informações fico à disposição!",
+          time: new Date(),
+          id: 1,
+          tenantId: user?.id,
+          hostId: house?.userId,
+        },
+      ],
     };
     setSuccessRent(true);
     bookHouse(rent);

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Container } from "./styles";
 import iconHouse from "../../assets/bsHouseFill.svg";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { array } from "yup";
+import { propNames } from "@chakra-ui/react";
 
 function Map({ address }) {
   const [mark, setMark] = useState(false);

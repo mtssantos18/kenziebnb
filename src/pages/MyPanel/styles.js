@@ -9,22 +9,41 @@ export const Container = styled.div`
     width: 95%;
     margin: 0 auto;
     display: flex;
-    gap: 10px;
+    gap: 3px;
+
+    @media (min-width: 400px) {
+      gap: 10px;
+      button {
+        font-size: 50px;
+      }
+    }
 
     .btnHome,
     .btnMyHouse {
+      transition: all 0.3s;
       background: #d9d9d9;
       border-radius: 10px;
       height: 26px;
       padding: 0 1rem;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 11px;
       line-height: 17px;
       color: var(--grey-4);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-top: 5px;
+
+      &:hover {
+        background-color: var(--grey-4);
+        color: #fff;
+      }
+
+      @media (min-width: 400px) {
+        gap: 10px;
+
+        font-size: 14px;
+      }
     }
   }
   .containerMyHouse {
@@ -114,5 +133,36 @@ export const Container = styled.div`
         }
       }
     }
+  }
+`;
+
+export const Title = styled.h2`
+  font-weight: 600;
+  font-family: Inter;
+  font-size: 16px;
+  color: #495057;
+
+  padding: 0.5rem 1.3rem;
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+
+  padding: 0 1.3rem;
+  margin-bottom: 1rem;
+
+  min-height: 70%;
+
+  @media (min-width: 800px) {
+    overflow-x: hidden;
+    margin: 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 `;

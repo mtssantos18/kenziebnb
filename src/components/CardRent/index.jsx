@@ -1,21 +1,29 @@
 import {
   BookingInfo,
   Container,
+  DivFlex,
   HostInfo,
   ImgDiv,
   PeriodAndPrice,
+  SpanPending,
+  SpanSuccess,
   TotalPrice,
 } from "./style";
 
 import { useState, useEffect, useContext } from "react";
 
+import { BsFillChatTextFill } from "react-icons/bs";
+
 import api from "../../services/api";
 import { RentsContext } from "../../providers/Rents/Rents";
+import ChatModal from "../ChatModal";
 
 function CardRent({ myRent, user }) {
   const [owner, setOwner] = useState({});
+  const [tenant, setTenant] = useState(false);
+  const [showModalChat, setShowModalChat] = useState(false);
 
-  const { deleteBookHouse } = useContext(RentsContext);
+  const { deleteBookHouse, editBook } = useContext(RentsContext);
 
   useEffect(() => {
     async function getHomeAndOwner(houseId) {
@@ -23,12 +31,14 @@ function CardRent({ myRent, user }) {
         const response = await api.get(`/homes/${houseId}?_expand=user`);
 
         setOwner(response.data);
+        const newTenant = await getTenant();
+        setTenant(newTenant);
         return response.data;
       } catch (error) {}
     }
 
     getHomeAndOwner(myRent.houseId);
-  }, [myRent.houseId]);
+  }, [myRent.houseId, myRent.status]);
 
   function getTotalDays(start, end) {
     const startDate = new Date(start);
@@ -52,6 +62,19 @@ function CardRent({ myRent, user }) {
     return adjustedPhone;
   }
 
+  async function handleConfirmRent() {
+    myRent.status = "confirmed";
+    await editBook(myRent.id, myRent);
+  }
+  async function getTenant() {
+    const response = await api.get(`/users/${myRent.tenantId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("@Kenziebnb:token")}`,
+      },
+    });
+    return response.data;
+  }
+
   const totalInDays = getTotalDays(myRent.startDate, myRent.endDate);
 
   const startDateApi = new Date(myRent.startDate);
@@ -72,19 +95,42 @@ function CardRent({ myRent, user }) {
 
   const housePrice = owner?.price * totalInDays;
 
-  const phoneNumber = owner?.user?.phone && formatPhone(owner?.user?.phone);
+  const phoneNumber =
+    user.atribution !== "host"
+      ? owner?.user?.phone && formatPhone(owner?.user?.phone)
+      : tenant?.phone && formatPhone(tenant?.phone);
 
   return (
     <>
       <Container>
+        {showModalChat && (
+          <ChatModal
+            myRent={myRent}
+            messages={myRent?.messages}
+            setShowModalChat={setShowModalChat}
+            owner={owner}
+            tenant={tenant}
+          />
+        )}
         <ImgDiv>
           <img src={owner.imgs && owner?.imgs[0]} alt="Casa" />
         </ImgDiv>
         <BookingInfo>
           <PeriodAndPrice>
-            <p>
-              Hóspedes: <span>{owner.capacity}</span>
-            </p>
+            <DivFlex>
+              <p>
+                Hóspedes: <span>{owner.capacity}</span>
+              </p>
+              <button onClick={() => setShowModalChat(true)}>
+                <div className="iconMsg">{myRent.messages.length}</div>
+                <BsFillChatTextFill size={18} />
+              </button>
+              {myRent?.status === "pending" ? (
+                <SpanPending>Pendente</SpanPending>
+              ) : (
+                <SpanSuccess>Confirmado</SpanSuccess>
+              )}
+            </DivFlex>
             <h3>Período</h3>
             <p>
               Entrada: <span>{startDateShow}</span>
@@ -107,22 +153,44 @@ function CardRent({ myRent, user }) {
             </TotalPrice>
           </PeriodAndPrice>
           <HostInfo>
-            <h3>
-              {user.atribution === "host" ? "Dados Locatário" : "Dados Locador"}
-            </h3>
-            <p>
-              Nome: <span>{owner?.user?.name}</span>
-            </p>
-            <p>
-              Telefone: <span>{phoneNumber}</span>
-            </p>
-            <p>
-              Email: <span>{owner?.user?.email}</span>
-            </p>
+            {user.atribution !== "host" ? (
+              <>
+                <h3>Dados Locador</h3>
+                <p>
+                  Nome: <span>{owner?.user?.name}</span>
+                </p>
+                <p>
+                  Telefone: <span>{phoneNumber}</span>
+                </p>
+                <p>
+                  Email: <span>{owner?.user?.email}</span>
+                </p>
+              </>
+            ) : (
+              <>
+                <h3>Dados Locatário</h3>
+                <p>
+                  Nome: <span>{tenant?.name}</span>
+                </p>
+                <p>
+                  Telefone: <span>{phoneNumber}</span>
+                </p>
+                <p>
+                  Email: <span>{tenant?.email}</span>
+                </p>
+              </>
+            )}
           </HostInfo>
-          <button onClick={() => deleteBookHouse(myRent.id)}>
-            Cancelar Reserva
-          </button>
+          <div className="containerBtn">
+            {myRent?.status === "pending" && user.atribution === "host" && (
+              <button className="btnPending" onClick={handleConfirmRent}>
+                Confirmar
+              </button>
+            )}
+            <button onClick={() => deleteBookHouse(myRent.id)}>
+              Cancelar Reserva
+            </button>
+          </div>
         </BookingInfo>
       </Container>
     </>

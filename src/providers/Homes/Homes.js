@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+
 import api from "../../services/api";
+
+import { toast } from "react-toastify";
 
 export const HomesContext = createContext([]);
 
@@ -30,7 +32,6 @@ export const HomesProvider = ({ children }) => {
       toast.success("Casa adicionada com sucesso!");
       return response.data;
     } catch (error) {
-      console.log(error);
       toast.error("Informação insuficente para adicionar nova casa");
     }
   }
@@ -38,6 +39,7 @@ export const HomesProvider = ({ children }) => {
   async function editHome(id, data) {
     try {
       const token = localStorage.getItem("@Kenziebnb:token");
+      // eslint-disable-next-line no-unused-vars
       const response = await api.patch(`/homes/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -45,7 +47,6 @@ export const HomesProvider = ({ children }) => {
       });
       toast.success("Alterado com sucesso!");
     } catch (error) {
-      console.log(error);
       toast.error("Algo deu errado!");
     }
   }
@@ -54,6 +55,7 @@ export const HomesProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("@Kenziebnb:token");
 
+      // eslint-disable-next-line no-unused-vars
       const response = api.delete(`/homes/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,

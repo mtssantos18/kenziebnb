@@ -1,4 +1,3 @@
-import { set } from "date-fns";
 import { createContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -25,9 +24,7 @@ export const UserProvider = ({ children }) => {
       const userSelected = response.data.find((e) => e.id === +id);
       setUser(userSelected);
       return userSelected;
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   }
 
   useEffect(() => {
@@ -54,7 +51,6 @@ export const UserProvider = ({ children }) => {
   async function loginUser(formData) {
     try {
       const response = await api.post("/login", formData);
-      console.log(response);
 
       setUser(response.data.user);
 
@@ -76,7 +72,6 @@ export const UserProvider = ({ children }) => {
         }
       }, 3000);
     } catch (error) {
-      console.log(error.response.data);
       if (error.response.data === "Cannot find user") {
         toast.error("Email inválido");
       } else {

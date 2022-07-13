@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import api from "../../services/api";
+
 import { UserContext } from "../User/User";
+
+import { toast } from "react-toastify";
 
 export const RentsContext = createContext([]);
 
@@ -39,6 +41,23 @@ export const RentsProvider = ({ children }) => {
       .catch((err) => toast.error("Tente novamente mais tarde"));
   }
 
+  function editBook(id, data) {
+    const token = localStorage.getItem("@Kenziebnb:token");
+
+    api
+      .patch(`/rents/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.success("Reserva Confirmada!");
+        const newRents = rents.filter((elem) => elem.id !== id);
+        setRents([...newRents, res.data]);
+      })
+      .catch((err) => toast.error("Tente novamente mais tarde"));
+  }
+
   function deleteBookHouse(bookId) {
     const token = localStorage.getItem("@Kenziebnb:token");
 
@@ -55,9 +74,26 @@ export const RentsProvider = ({ children }) => {
       .then((res) => toast.success("Reserva cancelada"))
       .catch((err) => toast.error("Algo deu errado"));
   }
+  function newMessage(id, message) {
+    const token = localStorage.getItem("@Kenziebnb:token");
 
+    api
+      .patch(`/rents/${id}`, message, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.success("Mensagem enviada com sucesso!");
+        const newRents = rents.filter((elem) => elem.id !== id);
+        setRents([...newRents, res.data]);
+      })
+      .catch((err) => toast.error("Tente novamente mais tarde"));
+  }
   return (
-    <RentsContext.Provider value={{ rents, bookHouse, deleteBookHouse }}>
+    <RentsContext.Provider
+      value={{ rents, bookHouse, deleteBookHouse, editBook, newMessage }}
+    >
       {children}
     </RentsContext.Provider>
   );

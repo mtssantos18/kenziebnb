@@ -44,7 +44,6 @@ function TenantPanel() {
           </Message>
         )}
       </Content>
-      <Footer />
     </Container>
   );
 }
