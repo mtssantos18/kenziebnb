@@ -2,8 +2,7 @@ import React from "react";
 
 import { Container } from "./styles";
 
-export const MessageChat = ({ myRent, message, owner, tenant }) => {
-  console.log(message);
+export const MessageChat = ({ message, owner, tenant }) => {
   const date = new Date(message?.time);
   return (
     <Container>

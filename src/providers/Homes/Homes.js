@@ -32,7 +32,6 @@ export const HomesProvider = ({ children }) => {
       toast.success("Casa adicionada com sucesso!");
       return response.data;
     } catch (error) {
-      console.log(error);
       toast.error("Informação insuficente para adicionar nova casa");
     }
   }
@@ -48,7 +47,6 @@ export const HomesProvider = ({ children }) => {
       });
       toast.success("Alterado com sucesso!");
     } catch (error) {
-      console.log(error);
       toast.error("Algo deu errado!");
     }
   }

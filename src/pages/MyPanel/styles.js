@@ -161,7 +161,7 @@ export const Content = styled.div`
 
   @media (min-width: 800px) {
     overflow-x: hidden;
-
+    margin: 0 auto;
     flex-direction: row;
     flex-wrap: wrap;
   }
