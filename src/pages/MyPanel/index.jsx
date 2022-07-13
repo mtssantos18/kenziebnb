@@ -26,8 +26,7 @@ import { RentsContext } from "../../providers/Rents/Rents";
 
 export const MyPanel = () => {
   const { getUser, user } = useContext(UserContext);
-  const { homeList, addHome, editHome, getHomeList, setHomeList, removeHome } =
-    useContext(HomesContext);
+  const { homeList, addHome, editHome, getHomeList } = useContext(HomesContext);
   const history = useHistory();
   const [home, setHome] = useState({});
   const [host, setHost] = useState(false);
@@ -82,6 +81,7 @@ export const MyPanel = () => {
       .then((res) => {
         setHome(res);
       });
+    // eslint-disable-next-line no-sparse-arrays, react-hooks/exhaustive-deps
   }, [, homeList]);
 
   yup.addMethod(yup.string, "stripEmptyString", function () {

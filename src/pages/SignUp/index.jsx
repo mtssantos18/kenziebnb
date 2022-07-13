@@ -1,10 +1,4 @@
-import {
-  AnimationContainer,
-  Background,
-  BackgroundDesk,
-  Container,
-  FormDiv,
-} from "./style";
+import { AnimationContainer, Background, Container, FormDiv } from "./style";
 
 import Input from "../../components/Input";
 import SelectInput from "../../components/SelectInput";
