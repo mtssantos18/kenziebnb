@@ -53,7 +53,6 @@ function ChatModal({ myRent, messages, setShowModalChat, tenant, owner }) {
                 return (
                   <MessageChat
                     key={index}
-                    myRent={myRent}
                     message={message}
                     owner={owner}
                     tenant={tenant}
