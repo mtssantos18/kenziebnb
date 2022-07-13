@@ -38,6 +38,7 @@ function CardRent({ myRent, user }) {
     }
 
     getHomeAndOwner(myRent.houseId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myRent.houseId, myRent.status]);
 
   function getTotalDays(start, end) {

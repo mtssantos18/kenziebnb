@@ -12,80 +12,80 @@ import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 function CardHouse({ product }) {
-	const history = useHistory();
-	const [currentHomeStars, setCurrentHomeStars] = useState([]);
-	const { filterList } = useContext(FilterContext);
+  const history = useHistory();
+  const [currentHomeStars, setCurrentHomeStars] = useState([]);
+  const { filterList } = useContext(FilterContext);
 
-	const formatValue = Intl.NumberFormat("pt-BR", {
-		style: "currency",
-		currency: "BRL",
-	}).format(product.price);
+  const formatValue = Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(product.price);
 
-	function handleClickDetails(id) {
-		history.push(`/house/${id}`);
-	}
+  function handleClickDetails(id) {
+    history.push(`/house/${id}`);
+  }
 
-	function homeStars() {
-		const starsArray = [];
-		for (let i = 1; i <= 5; i++) {
-			if (i <= product.reviews) {
-				starsArray.push(true);
-			} else {
-				starsArray.push(false);
-			}
-		}
-		setCurrentHomeStars([...starsArray]);
-	}
+  function homeStars() {
+    const starsArray = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= product.reviews) {
+        starsArray.push(true);
+      } else {
+        starsArray.push(false);
+      }
+    }
+    setCurrentHomeStars([...starsArray]);
+  }
 
-	useEffect(() => {
-		homeStars();
-	}, [filterList]);
+  useEffect(() => {
+    homeStars();
+  }, [filterList, product]);
 
-	return (
-		<Container>
-			<figure>
-				{/* <img src={product.imgs[0]} alt={product.title} /> */}
-				<Swiper
-					pagination={{
-						dynamicBullets: true,
-					}}
-					modules={[Pagination]}
-					className="mySwiper"
-				>
-					<div className="containerImgs">
-						{product.imgs?.map((img, index) => {
-							return (
-								<SwiperSlide className="slider" key={index}>
-									<img src={img} alt="" />
-								</SwiperSlide>
-							);
-						})}
-					</div>
-				</Swiper>
-			</figure>
-			<div>
-				<h2>{product.title}</h2>
-				<p>{product.capacity} hóspedes</p>
-			</div>
-			<Price>
-				{formatValue}
-				<span> / noite</span>
-			</Price>
-			<ContainerEvaluation>
-				{/* {product.reviews} */}
-				{currentHomeStars?.map((elem, index) => {
-					return elem ? (
-						<AiFillStar key={index} />
-					) : (
-						<AiOutlineStar key={index} />
-					);
-				})}
-			</ContainerEvaluation>
+  return (
+    <Container>
+      <figure>
+        {/* <img src={product.imgs[0]} alt={product.title} /> */}
+        <Swiper
+          pagination={{
+            dynamicBullets: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          <div className="containerImgs">
+            {product.imgs?.map((img, index) => {
+              return (
+                <SwiperSlide className="slider" key={index}>
+                  <img src={img} alt="" />
+                </SwiperSlide>
+              );
+            })}
+          </div>
+        </Swiper>
+      </figure>
+      <div>
+        <h2>{product.title}</h2>
+        <p>{product.capacity} hóspedes</p>
+      </div>
+      <Price>
+        {formatValue}
+        <span> / noite</span>
+      </Price>
+      <ContainerEvaluation>
+        {/* {product.reviews} */}
+        {currentHomeStars?.map((elem, index) => {
+          return elem ? (
+            <AiFillStar key={index} />
+          ) : (
+            <AiOutlineStar key={index} />
+          );
+        })}
+      </ContainerEvaluation>
 
-			<Button onClick={() => handleClickDetails(product.id)}>
-				Ver detalhes
-			</Button>
-		</Container>
-	);
+      <Button onClick={() => handleClickDetails(product.id)}>
+        Ver detalhes
+      </Button>
+    </Container>
+  );
 }
 export default CardHouse;

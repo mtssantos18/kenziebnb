@@ -99,6 +99,7 @@ function RentModal({ setShowModal, house }) {
       setUser(newUser);
     }
     reloadUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps, no-sparse-arrays
   }, [, selectDate]);
 
   return (

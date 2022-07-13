@@ -404,7 +404,7 @@ export const MyPanel = () => {
             ) : (
               <Message>
                 <HiOutlineEmojiSad size={40} />
-                <h2>Você ainda não tem nenhuma reserva.</h2>
+                <h2>Não há reservas na sua residência.</h2>
               </Message>
             )}
           </Content>
