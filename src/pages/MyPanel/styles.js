@@ -13,9 +13,6 @@ export const Container = styled.div`
 
     @media (min-width: 400px) {
       gap: 10px;
-      button {
-        font-size: 50px;
-      }
     }
 
     .btnHome,
