@@ -76,7 +76,7 @@ function CardRent({ myRent, user }) {
     return response.data;
   }
 
-  const totalInDays = getTotalDays(myRent.startDate, myRent.endDate);
+  const totalInDays = getTotalDays(myRent.startDate, myRent.endDate) + 1;
 
   const startDateApi = new Date(myRent.startDate);
 
