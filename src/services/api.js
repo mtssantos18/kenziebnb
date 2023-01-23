@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://api-kenziebnb.herokuapp.com",
+  baseURL: "https://kenziebnb-api.onrender.com/",
   timeout: 15000,
 });
 

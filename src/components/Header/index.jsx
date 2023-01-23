@@ -20,6 +20,10 @@ function Header() {
     }
   }, []);
 
+  function goToHome() {
+    history.push("/");
+  }
+
   function handleLogin() {
     history.push("/login");
   }
@@ -45,7 +49,7 @@ function Header() {
   return (
     <Container>
       <div className="divHeader">
-        <h1>KenzieBnB</h1>
+        <h1 onClick={() => goToHome()}>KenzieBnB</h1>
         {logged ? (
           <div className="divProfile">
             <button className="btnProfile" onClick={handleToggleProfile}>

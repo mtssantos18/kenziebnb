@@ -20,6 +20,8 @@ export const Container = styled.header`
     font-size: 20px;
     line-height: 24px;
     color: #fff;
+
+    cursor: pointer;
   }
   .btnProfile {
     transition: all 0.2s;
